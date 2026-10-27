@@ -7,18 +7,18 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Permanent+Marker&family=Special+Elite&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Permanent+Marker&family=Special+Elite&family=Anton&family=Oswald:wght@400;600&display=swap">
 <style>
   /* Layout concept: a school exercise book. Ruled text blocks, margin line, drawings stuck in as boxed panels. */
   :root {
-    --desk: #e4e8f1;
-    --paper: #fdfdff;
-    --ink: #1c1e2b;
+    --desk: #dfe4ec;
+    --paper: #fdfdfb;
+    --ink: #15161d;
     --rule: #c3d6ee;
     --margin: #e8908f;
     --beet: #a8325e;
     --cheese: #f3c53a;
-    --velvet: #3d2f73;
+    --velvet: #23232e;
     --hivis: #ff8a1f;
     --hedge: #78b358;
     --water: #bfe1f6;
@@ -27,21 +27,10 @@
     --pad: 64px;
     --fs: 21px;
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --desk: #0f111a; --paper: #1a1e2d; --ink: #ecedf6; --rule: #2b3855; --margin: #84404f;
-      --beet: #d9709a; --cheese: #f1c94d; --velvet: #9d8de0; --hivis: #ff9a3c; --hedge: #4e8a3e; --water: #2d5a7c; --note: #5a5223;
-      color-scheme: dark;
-    }
-  }
-  :root[data-theme="dark"] {
-    --desk: #0f111a; --paper: #1a1e2d; --ink: #ecedf6; --rule: #2b3855; --margin: #84404f;
-    --beet: #d9709a; --cheese: #f1c94d; --velvet: #9d8de0; --hivis: #ff9a3c; --hedge: #4e8a3e; --water: #2d5a7c; --note: #5a5223;
-    color-scheme: dark;
-  }
   * { box-sizing: border-box; }
   body {
     background: var(--desk); color: var(--ink);
+    color-scheme: light;
     font-family: 'Patrick Hand', 'Comic Sans MS', 'Chalkboard SE', cursive;
     font-size: var(--fs); line-height: var(--lh);
     padding-left: max(16px, env(safe-area-inset-left, 0px));
@@ -81,15 +70,27 @@
   .endmark { font-family: 'Permanent Marker', cursive; text-align: center; margin: 42px 0 0; font-size: 18px; opacity: .8; }
 
   .l, .p, .b, .c, .v, .o, .g, .w { stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+
+  .l, .p, .b, .c, .v, .o, .g, .w, .k2 { stroke: var(--ink); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ao, .ab, .av { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ao { stroke: var(--ink); stroke-width: 10; }
+  .ab { stroke: var(--beet); stroke-width: 5.6; }
+  .av { stroke: #3a3a4a; stroke-width: 5.6; }
+  .ao2 { fill:none; stroke: var(--ink); stroke-width: 2.6; vector-effect: non-scaling-stroke; }
+  .r2 { fill: var(--beet); stroke: none; }
+  .hx { fill: none; stroke: var(--ink); stroke-width: 1.5; opacity: .55; stroke-linecap: round; vector-effect: non-scaling-stroke; }
   .l { fill: none; }
   .p { fill: var(--paper); } .b { fill: var(--beet); } .c { fill: var(--cheese); }
-  .v { fill: var(--velvet); } .o { fill: var(--hivis); } .g { fill: var(--hedge); } .w { fill: var(--water); }
+  .v { fill: var(--velvet); } .k2{fill:var(--ink)} .o { fill: var(--hivis); } .g { fill: var(--hedge); } .w { fill: var(--water); }
   .k { fill: var(--ink); stroke: none; }
-  .sh { fill: var(--ink); opacity: .1; stroke: none; }
-  .r { fill: var(--beet); opacity: .38; stroke: none; }
   .t { font-family: 'Permanent Marker', cursive; fill: var(--ink); text-anchor: middle; }
   .h { font-family: 'Patrick Hand', cursive; fill: var(--ink); }
   .d { stroke-dasharray: 3 7; }
+  .sh { fill: var(--ink); opacity: .1; stroke: none; }
+  .r { fill: var(--beet); opacity: .38; stroke: none; }
+  .pl { font-family: Anton, Impact, sans-serif; fill: #15161d; text-anchor: middle; }
+  .po { font-family: Oswald, "Arial Narrow", sans-serif; fill: #15161d; text-anchor: middle; font-weight: 600; }
+  .pn { font-family: Oswald, "Arial Narrow", sans-serif; fill: #15161d; font-weight: 400; }
 
   @media (max-width: 560px) {
     :root { --lh: 30px; --pad: 38px; --fs: 19px; }
@@ -109,178 +110,209 @@
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
+    <!-- sketchy ink: a displaced copy plus a fainter second pass, so lines look drawn twice -->
     <filter id="wob" filterUnits="userSpaceOnUse" x="-40" y="-40" width="1000" height="700">
-      <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="2" seed="7" result="n"/>
-      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" xChannelSelector="R" yChannelSelector="G"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="7" result="n1"/>
+      <feDisplacementMap in="SourceGraphic" in2="n1" scale="2.6" xChannelSelector="R" yChannelSelector="G" result="d1"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="21" result="n2"/>
+      <feDisplacementMap in="SourceGraphic" in2="n2" scale="3.4" xChannelSelector="G" yChannelSelector="R" result="d2"/>
+      <feComponentTransfer in="d2" result="d2f"><feFuncA type="linear" slope="0.42"/></feComponentTransfer>
+      <feMerge><feMergeNode in="d2f"/><feMergeNode in="d1"/></feMerge>
     </filter>
 
-    <!-- TOOTY: shared body and head, then one symbol per pose -->
+    <!-- TOOTY -->
     <symbol id="tcore" viewBox="0 0 120 170">
-      <ellipse class="sh" cx="60" cy="166" rx="42" ry="6"/>
-      <path class="l" d="M50 146 L48 160 M70 146 L72 160"/>
-      <path class="k" d="M30 164 C30 157 52 157 54 164 C54 169 30 169 30 164Z M66 164 C66 157 90 157 90 164 C90 169 66 169 66 164Z"/>
-      <path class="b" d="M37 92 C27 126 33 148 60 148 C87 148 93 126 83 92 C73 84 47 84 37 92Z"/>
-      <path class="l" d="M40 112 L48 120 M38 124 L48 132 M43 100 L49 106 M80 114 L72 122" style="stroke-width:2"/>
-      <circle class="k" cx="60" cy="104" r="2.6"/><circle class="k" cx="60" cy="117" r="2.6"/><circle class="k" cx="60" cy="130" r="2.6"/>
-      <path class="l" d="M60 107 Q77 109 74 125" style="stroke-width:2.4"/>
-      <ellipse class="p" cx="60" cy="68" rx="24" ry="24"/>
-      <circle class="r" cx="41" cy="85" r="5.5"/><circle class="r" cx="79" cy="85" r="5.5"/>
-      <path class="p" d="M34 62 C30 22 90 22 86 62Z"/>
-      <path class="p" d="M19 65 Q60 48 101 65 Q60 71 19 65Z"/>
-      <path class="l" d="M33 55 Q60 49 87 55"/><circle class="p" cx="60" cy="26" r="3"/>
-      <path class="l" d="M42 76 L57 72 M63 72 L80 75" style="stroke-width:4.5"/>
-      <circle class="k" cx="50" cy="80" r="2.8"/>
-      <circle class="l" cx="71" cy="80" r="7.5"/><circle class="k" cx="71" cy="80" r="2.8"/>
-      <path class="l" d="M78 84 Q92 94 88 110" style="stroke-width:2"/>
-      <path class="l" d="M60 80 Q56 86 61 88"/>
-      <path class="k" d="M60 91 C50 83 34 89 27 78 C31 101 50 101 60 93 C70 101 89 101 93 78 C86 89 70 83 60 91Z"/>
+      <path class="hx" d="M24 168 l9 -5 M44 169 l9 -5 M68 169 l9 -5 M88 168 l9 -5"/>
+      <path class="p" d="M44 138 L42 158 L57 158 L59 138Z"/><path class="p" d="M61 138 L63 158 L78 158 L76 138Z"/>
+      <path class="l" d="M43 147 L58 147 M62 147 L77 147 M50 138 L49 158 M70 138 L71 158" style="stroke-width:1.4"/>
+      <path class="k" d="M38 160 C33 160 31 168 36 169 L59 169 C62 168 61 160 57 160Z M61 160 C59 160 58 168 61 169 L84 169 C89 168 87 160 82 160Z"/>
+      <path class="b" d="M36 92 C25 116 26 140 34 151 L48 146 L60 153 L72 146 L86 151 C94 140 95 116 84 92 C74 84 46 84 36 92Z"/>
+      <path class="l" d="M60 114 L60 152" style="stroke-width:1.6"/>
+      <path class="hx" d="M70 100 L80 108 M72 113 L83 121 M72 127 L83 135 M40 128 L46 134 M38 114 L44 120"/>
+      <path class="p" d="M50 87 L60 111 L70 87 L65 83 L55 83Z"/>
+      <path class="r2" d="M54 88 L60 98 L66 88Z"/>
+      <circle class="k" cx="60" cy="118" r="2.8"/><circle class="k" cx="60" cy="130" r="2.8"/><circle class="k" cx="60" cy="142" r="2.8"/>
+      <path class="l" d="M60 119 Q82 120 78 136" style="stroke-width:2"/><circle class="c" cx="78" cy="138" r="4"/>
+      <ellipse class="p" cx="60" cy="66" rx="25" ry="24"/>
+      <circle class="r" cx="40" cy="81" r="6"/><circle class="r" cx="80" cy="81" r="6"/>
+      <path class="p" d="M33 62 C29 20 91 20 87 62Z"/>
+      <path class="l" d="M60 24 L60 58 M47 28 Q43 44 40 60 M73 28 Q77 44 80 60" style="stroke-width:1.5"/>
+      <path class="k" d="M57 24 L60 7 L63 24Z"/>
+      <path class="p" d="M17 66 Q60 46 103 66 Q60 74 17 66Z"/>
+      <path class="hx" d="M26 67 L29 71 M38 69 L41 73 M52 70 L54 74 M68 70 L70 74 M82 69 L84 73"/>
+      <path class="l" d="M33 55 Q60 49 87 55" style="stroke-width:2"/>
+      <path class="k" d="M39 74 Q49 66 58 72 Q49 70 39 74Z M64 72 Q73 66 82 74 Q73 70 64 72Z"/>
+      <circle class="p" cx="49" cy="80" r="5.2" style="stroke-width:2"/><circle class="k" cx="50" cy="80" r="2.4"/>
+      <circle class="p" cx="71" cy="80" r="8.6"/><circle class="k" cx="72" cy="80" r="2.6"/>
+      <path class="l" d="M79 85 Q95 94 91 114" style="stroke-width:1.8"/>
+      <path class="p" d="M60 76 C53 80 54 89 60 89 C66 89 67 80 60 76Z"/>
+      <path class="k" d="M60 86 C52 80 40 85 33 89 C26 92 19 85 23 77 C25 73 31 74 31 78 C30 82 35 83 40 80 C48 77 54 78 60 81 C66 78 72 77 80 80 C85 83 90 82 89 78 C89 74 95 73 97 77 C101 85 94 92 87 89 C80 85 68 80 60 86Z"/>
     </symbol>
     <symbol id="tooty" viewBox="0 0 120 170">
       <use href="#tcore"/>
-      <path class="l" d="M40 98 Q22 112 22 130"/><circle class="p" cx="22" cy="133" r="4.5"/>
-      <path class="l" d="M80 98 Q100 92 106 74"/><circle class="p" cx="106" cy="69" r="5"/>
+      <path class="ao" d="M40 98 Q22 112 22 130"/><path class="ab" d="M40 98 Q22 112 22 130"/><circle class="p" cx="22" cy="134" r="5"/>
+      <path class="ao" d="M80 98 Q101 92 107 74"/><path class="ab" d="M80 98 Q101 92 107 74"/><circle class="p" cx="107" cy="69" r="5.5"/>
     </symbol>
     <symbol id="tootyUp" viewBox="0 0 120 170">
       <use href="#tcore"/>
-      <path class="l" d="M40 98 Q14 92 24 58"/><circle class="p" cx="24" cy="53" r="5.5"/>
-      <path class="l" d="M80 98 Q106 92 96 58"/><circle class="p" cx="96" cy="53" r="5.5"/>
+      <path class="ao" d="M40 98 Q13 92 24 58"/><path class="ab" d="M40 98 Q13 92 24 58"/><circle class="p" cx="24" cy="53" r="6"/>
+      <path class="ao" d="M80 98 Q107 92 96 58"/><path class="ab" d="M80 98 Q107 92 96 58"/><circle class="p" cx="96" cy="53" r="6"/>
     </symbol>
     <symbol id="tootyBurst" viewBox="0 0 120 170">
       <use href="#tcore"/>
-      <path class="l" d="M40 98 Q16 102 6 84"/><circle class="p" cx="5" cy="79" r="5.5"/>
-      <path class="l" d="M80 98 Q104 102 114 84"/><circle class="p" cx="115" cy="79" r="5.5"/>
-      <ellipse class="k" cx="60" cy="100" rx="9" ry="6.5"/>
+      <path class="ao" d="M40 98 Q16 102 6 84"/><path class="ab" d="M40 98 Q16 102 6 84"/><circle class="p" cx="5" cy="79" r="6"/>
+      <path class="ao" d="M80 98 Q104 102 114 84"/><path class="ab" d="M80 98 Q104 102 114 84"/><circle class="p" cx="115" cy="79" r="6"/>
+      <path class="k" d="M50 94 Q60 112 70 94Q60 98 50 94Z"/>
+      <path class="r2" d="M56 100 Q60 108 64 100Z"/>
     </symbol>
     <symbol id="tootyShake" viewBox="0 0 120 170">
       <use href="#tcore"/>
-      <path class="l" d="M40 98 Q22 112 22 130"/><circle class="p" cx="22" cy="133" r="4.5"/>
-      <path class="l" d="M80 100 Q98 102 112 106"/><circle class="p" cx="114" cy="106" r="5.5"/>
+      <path class="ao" d="M40 98 Q22 112 22 130"/><path class="ab" d="M40 98 Q22 112 22 130"/><circle class="p" cx="22" cy="134" r="5"/>
+      <path class="ao" d="M80 100 Q98 102 112 106"/><path class="ab" d="M80 100 Q98 102 112 106"/><circle class="p" cx="115" cy="106" r="6"/>
     </symbol>
 
     <!-- WILFORD -->
     <symbol id="wcore" viewBox="0 0 80 190">
-      <ellipse class="sh" cx="40" cy="186" rx="32" ry="5"/>
-      <path class="l" d="M32 130 L30 176 M48 130 L50 176"/>
-      <path class="k" d="M14 181 C14 175 36 175 36 181 C36 186 14 186 14 181Z M44 181 C44 175 66 175 66 181 C66 186 44 186 44 181Z"/>
-      <path class="p" d="M24 60 L56 60 L60 134 L20 134Z"/>
-      <path class="l" d="M22 96 L58 96 M21 114 L59 114" style="stroke-width:2.4"/>
-      <circle class="p" cx="40" cy="42" r="17"/>
-      <path class="p" d="M23 38 C24 18 56 18 57 38Z"/><path class="p" d="M52 36 L74 40 L52 42Z"/>
-      <circle class="l" cx="33" cy="45" r="6.5"/><circle class="l" cx="47" cy="45" r="6.5"/><path class="l" d="M39.5 45 h1" style="stroke-width:2"/>
-      <circle class="k" cx="33" cy="47" r="2"/><circle class="k" cx="47" cy="47" r="2"/>
-      <path class="l" d="M26 41 h14 M40 41 h14"/>
-      <path class="l" d="M29 53 Q33 55 37 53 M43 53 Q47 55 51 53" style="stroke-width:1.8"/>
-      <path class="l" d="M34 58 h12" style="stroke-width:2.4"/>
+      <path class="hx" d="M8 188 l8 -4 M30 189 l8 -4 M52 188 l8 -4"/>
+      <path class="l" d="M32 128 L30 174 M48 128 L50 174"/>
+      <path class="k" d="M10 178 C10 171 34 171 36 178 C38 187 10 187 10 178Z M44 178 C44 171 68 171 70 178 C72 187 44 187 44 178Z"/>
+      <path class="p" d="M22 62 L58 62 L62 134 L18 134Z"/>
+      <path class="l" d="M21 80 L59 80 M20 98 L60 98 M19 116 L61 116" style="stroke-width:1.6"/>
+      <path class="o" d="M52 62 Q72 70 67 98 L58 95 Q61 76 50 70Z"/>
+      <path class="l" d="M57 78 L64 80 M56 86 L64 88" style="stroke-width:1.6"/>
+      <path class="o" d="M23 56 Q40 68 57 56 L58 68 Q40 80 22 68Z"/>
+      <circle class="p" cx="40" cy="40" r="18"/>
+      <circle class="p" cx="22" cy="44" r="4"/><circle class="p" cx="58" cy="44" r="4"/>
+      <path class="p" d="M21 36 C20 12 60 12 59 36Z"/><path class="p" d="M54 34 L78 38 L54 43Z"/><circle class="k" cx="40" cy="15" r="2.2"/>
+      <circle class="p" cx="32" cy="44" r="7.6"/><circle class="p" cx="48" cy="44" r="7.6"/><path class="l" d="M39.6 44 h.8" style="stroke-width:2"/>
+      <circle class="k" cx="32" cy="46" r="2.2"/><circle class="k" cx="48" cy="46" r="2.2"/>
+      <path class="k" d="M24.4 44 Q32 34 39.6 44Z M40.4 44 Q48 34 55.6 44Z"/>
+      <path class="l" d="M26 53 Q32 57 38 53 M42 53 Q48 57 54 53" style="stroke-width:1.6"/>
+      <path class="l" d="M33 59 Q40 57 47 59" style="stroke-width:2.4"/>
     </symbol>
     <symbol id="wilford" viewBox="0 0 80 190">
       <use href="#wcore"/>
-      <path class="l" d="M24 64 Q12 100 16 128"/><circle class="p" cx="16" cy="131" r="4.5"/>
-      <path class="l" d="M56 64 Q68 100 64 128"/>
-      <path class="l" d="M26 62 L58 120"/><rect class="p" x="48" y="112" width="20" height="18" rx="3"/>
+      <path class="ao2" d="M24 66 Q12 100 16 126"/><path class="p" d="M24 66 Q12 100 16 126" style="fill:none;stroke:none"/><circle class="p" cx="16" cy="130" r="4.6"/>
+      <path class="l" d="M56 66 Q68 100 64 126"/><circle class="p" cx="64" cy="130" r="4.6"/>
+      <path class="l" d="M26 64 L58 122"/><rect class="p" x="46" y="112" width="22" height="20" rx="3"/><path class="l" d="M46 118 L68 118" style="stroke-width:1.6"/>
     </symbol>
     <symbol id="wilfordPalm" viewBox="0 0 80 190">
       <use href="#wcore"/>
-      <path class="l" d="M24 64 Q12 100 16 128"/><circle class="p" cx="16" cy="131" r="4.5"/>
-      <path class="l" d="M56 64 Q72 62 58 50"/>
-      <ellipse class="p" cx="45" cy="45" rx="14" ry="10"/>
-      <path class="l" d="M36 40 L36 50 M42 38 L42 52 M48 38 L48 52 M54 40 L54 50" style="stroke-width:2"/>
+      <path class="l" d="M24 66 Q12 100 16 126"/><circle class="p" cx="16" cy="130" r="4.6"/>
+      <path class="l" d="M56 66 Q73 62 58 50"/>
+      <ellipse class="p" cx="44" cy="45" rx="15" ry="11"/>
+      <path class="l" d="M35 40 L35 51 M41 38 L41 53 M47 38 L47 53 M53 40 L53 51" style="stroke-width:1.8"/>
     </symbol>
     <symbol id="wilfordShrug" viewBox="0 0 80 190">
       <use href="#wcore"/>
-      <path class="l" d="M24 66 Q6 84 2 68"/><circle class="p" cx="2" cy="65" r="5"/>
-      <path class="l" d="M56 66 Q74 84 78 68"/><circle class="p" cx="78" cy="65" r="5"/>
-      <path class="l" d="M26 36 Q33 31 39 36 M41 36 Q47 31 54 36" style="stroke-width:2.2"/>
+      <path class="l" d="M24 66 Q6 84 2 68"/><circle class="p" cx="2" cy="65" r="5.4"/>
+      <path class="l" d="M56 66 Q74 84 78 68"/><circle class="p" cx="78" cy="65" r="5.4"/>
+      <path class="l" d="M33 60 Q36 56 40 60 Q44 64 47 60" style="stroke-width:2.2"/>
     </symbol>
 
     <!-- COMPTON -->
     <symbol id="compton" viewBox="0 -16 90 206">
-      <ellipse class="sh" cx="45" cy="186" rx="34" ry="5"/>
-      <path class="l" d="M38 132 L37 176 M52 132 L53 176"/>
-      <path class="k" d="M24 183 L40 175 L40 185Z M66 183 L50 175 L50 185Z"/>
-      <path class="v" d="M26 62 L64 62 L72 138 L18 138Z"/>
-      <path class="l" d="M45 64 L45 138 M34 62 L45 86 L56 62"/>
-      <path class="l" d="M26 66 Q10 100 14 132"/>
-      <path class="l" d="M64 66 Q84 82 77 56 L77 40"/>
-      <path class="k" d="M14 128 L10 136 L19 134Z"/>
-      <ellipse class="p" cx="45" cy="40" rx="14" ry="18"/>
-      <path class="k" d="M30 34 L28 46 L33 40Z M60 34 L62 46 L57 40Z"/>
-      <path class="k" d="M26 21 L68 21 L66 26 L28 26Z"/>
-      <path class="k" d="M31 21 L33 -6 L57 -6 L59 21Z"/>
-      <path class="v" d="M32 12 L58 12 L58 18 L32 18Z"/>
-      <circle class="k" cx="39" cy="42" r="2.2"/><circle class="k" cx="51" cy="42" r="2.2"/>
-      <path class="l" d="M32 35 L43 39 M58 35 L47 39" style="stroke-width:3.4"/>
-      <path class="l" d="M39 49 Q45 46 51 49"/>
-      <path class="l" d="M37 53 Q45 62 53 53"/>
-      <path class="k" d="M45 64 L35 58 L35 70Z M45 64 L55 58 L55 70Z"/>
+      <path class="hx" d="M12 188 l8 -4 M36 189 l8 -4 M60 188 l8 -4"/>
+      <path class="k" d="M36 130 L33 176 L41 176 L45 136 L50 176 L58 176 L55 130Z"/>
+      <path class="k" d="M20 184 L41 175 L41 186Z M70 184 L49 175 L49 186Z"/>
+      <path class="v" d="M24 62 L66 62 L76 142 L60 136 L45 145 L30 136 L14 142Z"/>
+      <path class="l" d="M45 66 L45 145" style="stroke:var(--paper);stroke-width:1.4"/>
+      <path class="p" d="M36 62 L45 90 L54 62Z"/>
+      <path class="l" d="M32 62 L45 92 L58 62" style="stroke:var(--paper);stroke-width:1.6"/>
+      <path class="ao" d="M26 68 Q9 100 13 132" style="stroke-width:10"/><path class="av" d="M26 68 Q9 100 13 132"/>
+      <path class="ao" d="M64 68 Q86 84 78 56" style="stroke-width:10"/><path class="av" d="M64 68 Q86 84 78 56"/>
+      <path class="p" d="M74 56 L76 40 L80 40 L82 56 Q78 62 74 56Z"/>
+      <circle class="p" cx="13" cy="135" r="5"/>
+      <path class="p" d="M32 36 C30 20 60 20 58 36 C58 50 54 62 45 62 C36 62 32 50 32 36Z"/>
+      <path class="k" d="M32 40 L29 52 L35 46Z M58 40 L61 52 L55 46Z"/>
+      <path class="k" d="M45 56 Q40 62 45 70 Q50 62 45 56Z"/>
+      <path class="k" d="M35 40 L43 43 L43 45 L35 44Z M55 40 L47 43 L47 45 L55 44Z"/>
+      <path class="l" d="M33 36 L43 41 M57 36 L47 41" style="stroke-width:3.6"/>
+      <path class="l" d="M39 51 Q33 49 32 45 M51 51 Q57 49 58 45" style="stroke-width:1.8"/>
+      <path class="l" d="M36 55 Q45 63 54 55" style="stroke-width:2.4"/>
+      <path class="k" d="M26 22 L64 22 L62 27 L28 27Z"/>
+      <path class="k" d="M31 22 L33 -8 L57 -8 L59 22Z"/>
+      <path class="b" d="M32 12 L58 12 L58 19 L32 19Z"/>
+      <path class="k" d="M43 56 L37 61 L53 61 L47 56Z"/>
+      <path class="b" d="M45 64 L33 58 L33 70Z M45 64 L57 58 L57 70Z"/><circle class="k" cx="45" cy="64" r="2.4"/>
     </symbol>
 
     <!-- BINGO CROWD -->
     <symbol id="punter" viewBox="0 0 60 80">
-      <path class="p" d="M8 80 C8 46 52 46 52 80Z"/>
-      <circle class="p" cx="30" cy="26" r="14"/>
-      <circle class="k" cx="25" cy="26" r="2"/><circle class="k" cx="36" cy="26" r="2"/>
+      <path class="p" d="M7 80 C7 46 53 46 53 80Z"/><path class="hx" d="M12 66 l6 8 M20 62 l6 12"/>
+      <circle class="p" cx="15" cy="27" r="4.5"/><circle class="p" cx="45" cy="27" r="4.5"/>
+      <circle class="p" cx="30" cy="26" r="14.5"/>
+      <path class="l" d="M19 17 q4 -6 8 -2 q4 -5 8 -1 q4 -2 6 3" style="stroke-width:2"/>
+      <circle class="k" cx="25" cy="27" r="2"/><circle class="k" cx="36" cy="27" r="2"/>
       <path class="l" d="M24 35 h12" style="stroke-width:2.4"/>
-      <rect class="p" x="21" y="52" width="19" height="14" transform="rotate(-8 30 59)"/>
-      <path class="l" d="M42 60 L50 50"/>
+      <rect class="p" x="21" y="52" width="19" height="14" transform="rotate(-8 30 59)"/><path class="l" d="M24 56 l12 -2 M24 61 l12 -2" style="stroke-width:1.4"/>
+      <path class="l" d="M42 60 L50 48" /><circle class="o" cx="51" cy="46" r="3"/>
     </symbol>
     <symbol id="punterShock" viewBox="0 0 60 80">
-      <path class="p" d="M8 80 C8 46 52 46 52 80Z"/>
-      <circle class="p" cx="30" cy="26" r="14"/>
-      <path class="l" d="M16 16 Q30 2 44 16" style="stroke-width:2.4"/>
-      <circle class="l" cx="25" cy="26" r="4" style="stroke-width:2"/><circle class="l" cx="36" cy="26" r="4" style="stroke-width:2"/>
+      <path class="p" d="M7 80 C7 46 53 46 53 80Z"/>
+      <circle class="p" cx="15" cy="27" r="4.5"/><circle class="p" cx="45" cy="27" r="4.5"/>
+      <circle class="p" cx="30" cy="26" r="14.5"/>
+      <path class="l" d="M16 15 Q30 1 44 15" style="stroke-width:2.2"/>
+      <circle class="p" cx="25" cy="26" r="4.4" style="stroke-width:2"/><circle class="p" cx="36" cy="26" r="4.4" style="stroke-width:2"/>
       <circle class="k" cx="25" cy="26" r="1.4"/><circle class="k" cx="36" cy="26" r="1.4"/>
-      <ellipse class="k" cx="30" cy="36" rx="3" ry="4"/>
+      <ellipse class="k" cx="30" cy="37" rx="3.2" ry="4.4"/>
       <rect class="p" x="21" y="52" width="19" height="14" transform="rotate(-8 30 59)"/>
     </symbol>
     <symbol id="punterHat" viewBox="0 0 60 80">
-      <path class="p" d="M8 80 C8 46 52 46 52 80Z"/>
-      <circle class="p" cx="30" cy="26" r="14"/>
-      <path class="v" d="M12 20 Q30 -2 48 20 Q30 14 12 20Z"/>
-      <circle class="k" cx="25" cy="28" r="2"/><circle class="k" cx="36" cy="28" r="2"/>
-      <path class="l" d="M24 37 Q30 33 36 37" style="stroke-width:2.4"/>
+      <path class="p" d="M7 80 C7 46 53 46 53 80Z"/>
+      <circle class="p" cx="15" cy="28" r="4.5"/><circle class="p" cx="45" cy="28" r="4.5"/>
+      <circle class="p" cx="30" cy="27" r="14.5"/>
+      <path class="v" d="M11 22 Q30 -4 49 22 Q30 15 11 22Z"/><path class="b" d="M13 20 Q30 14 47 20 L46 23 Q30 17 14 23Z"/>
+      <circle class="k" cx="25" cy="29" r="2"/><circle class="k" cx="36" cy="29" r="2"/>
+      <path class="l" d="M24 38 Q30 34 36 38" style="stroke-width:2.4"/>
       <rect class="p" x="21" y="52" width="19" height="14" transform="rotate(-8 30 59)"/>
-      <path class="l" d="M42 60 L50 50"/>
+      <path class="l" d="M42 60 L50 48"/><circle class="o" cx="51" cy="46" r="3"/>
     </symbol>
 
     <symbol id="duck" viewBox="0 0 74 62">
-      <ellipse class="sh" cx="36" cy="58" rx="30" ry="3.5"/>
-      <path class="p" d="M6 36 C6 56 52 60 60 40 C63 30 54 26 48 26 C40 26 34 32 28 30 C18 28 6 26 6 36Z"/>
-      <circle class="p" cx="50" cy="19" r="10"/>
-      <path class="c" d="M58 19 L72 23 L58 27Z"/>
-      <circle class="k" cx="53" cy="17" r="1.9"/>
-      <path class="l" d="M48 12 L58 14"/>
-      <path class="l" d="M18 38 Q28 48 42 38"/>
+      <path class="hx" d="M12 59 l7 -3 M34 60 l7 -3 M52 59 l7 -3"/>
+      <path class="p" d="M5 36 C5 56 52 60 61 40 C64 30 55 26 48 26 C40 26 34 32 28 30 C18 28 5 26 5 36Z"/>
+      <circle class="p" cx="50" cy="19" r="10.5"/>
+      <path class="o" d="M58 19 L73 23 L58 27Z"/>
+      <circle class="p" cx="53" cy="17" r="3.2" style="stroke-width:2"/><circle class="k" cx="54" cy="17.4" r="1.7"/>
+      <path class="l" d="M47 11 L58 13.5" style="stroke-width:2.4"/>
+      <path class="l" d="M17 37 Q28 49 43 38 M14 33 L22 36" style="stroke-width:2.2"/>
     </symbol>
 
     <symbol id="cheese" viewBox="0 0 110 84">
       <path class="c" d="M7 28 L7 56 C7 76 103 76 103 56 L103 28 C103 50 7 50 7 28Z"/>
-      <path class="l" d="M20 46 L16 62 M34 52 L30 68 M52 55 L50 72 M72 54 L74 70 M90 48 L94 62" style="stroke-width:1.8"/>
+      <path class="hx" d="M20 48 L17 62 M34 54 L31 68 M52 57 L50 72 M72 56 L74 70 M90 50 L94 62"/>
       <ellipse class="c" cx="55" cy="28" rx="48" ry="20"/>
       <ellipse class="p" cx="36" cy="27" rx="6" ry="3"/><ellipse class="p" cx="64" cy="31" rx="8" ry="3.5"/><ellipse class="p" cx="84" cy="24" rx="4" ry="2"/>
       <circle class="p" cx="26" cy="60" r="4"/><circle class="p" cx="72" cy="63" r="5"/><circle class="p" cx="50" cy="56" r="3"/>
     </symbol>
 
     <symbol id="penny" viewBox="0 -50 200 220">
-      <circle class="l" cx="72" cy="106" r="58"/>
-      <circle class="l" cx="72" cy="106" r="52" style="stroke-width:1.6"/>
-      <path class="l" d="M72 106 L130 106 M72 106 L113 147 M72 106 L72 164 M72 106 L31 147 M72 106 L14 106 M72 106 L31 65 M72 106 L72 48 M72 106 L113 65" style="stroke-width:2"/>
+      <path class="hx" d="M20 166 l9 -5 M56 167 l9 -5 M100 167 l9 -5 M150 168 l9 -5"/>
+      <circle class="l" cx="72" cy="106" r="58" style="stroke-width:4"/>
+      <circle class="l" cx="72" cy="106" r="52" style="stroke-width:1.4"/>
+      <path class="l" d="M72 106 L130 106 M72 106 L113 147 M72 106 L72 164 M72 106 L31 147 M72 106 L14 106 M72 106 L31 65 M72 106 L72 48 M72 106 L113 65" style="stroke-width:1.6"/>
       <circle class="k" cx="72" cy="106" r="5"/>
-      <circle class="l" cx="172" cy="146" r="20"/>
-      <path class="l" d="M172 146 L192 146 M172 146 L152 146 M172 146 L172 126 M172 146 L172 166" style="stroke-width:2"/>
-      <path class="l" d="M72 106 L84 44 Q140 70 172 146"/>
-      <path class="l" d="M72 106 L60 54 L44 52"/>
+      <circle class="l" cx="172" cy="146" r="20" style="stroke-width:3.4"/>
+      <path class="l" d="M172 146 L192 146 M172 146 L152 146 M172 146 L172 126 M172 146 L172 166" style="stroke-width:1.6"/>
+      <path class="l" d="M72 106 L84 44 Q140 70 172 146" style="stroke-width:3.4"/>
+      <path class="l" d="M72 106 L60 54 L44 52" style="stroke-width:3.4"/><path class="k" d="M38 50 L50 50 L48 56 L38 55Z"/>
       <path class="k" d="M72 42 L102 42 L100 48 L74 48Z"/>
-      <use href="#tooty" x="56" y="-48" width="64" height="90"/>
+      <path class="l" d="M76 106 L90 124" style="stroke-width:3"/><path class="k" d="M86 122 L96 122 L96 127 L86 127Z"/>
+      <use href="#tooty" x="30" y="-74" width="84" height="119"/>
     </symbol>
 
     <symbol id="bike" viewBox="0 -60 200 210">
-      <circle class="l" cx="42" cy="108" r="34"/><circle class="l" cx="158" cy="108" r="34"/>
+      <path class="hx" d="M10 146 l9 -5 M70 147 l9 -5 M120 147 l9 -5 M172 146 l9 -5"/>
+      <circle class="l" cx="42" cy="108" r="34" style="stroke-width:3.6"/><circle class="l" cx="158" cy="108" r="34" style="stroke-width:3.6"/>
+      <path class="l" d="M42 108 L42 76 M42 108 L66 120 M42 108 L18 120 M158 108 L158 76 M158 108 L182 120 M158 108 L134 120" style="stroke-width:1.2"/>
       <circle class="k" cx="42" cy="108" r="4"/><circle class="k" cx="158" cy="108" r="4"/>
       <path class="l" d="M42 108 L80 60 L130 60 L158 108 M80 60 L98 108 L42 108 M98 108 L130 60 M80 60 L74 50 M130 60 L134 44 L150 44"/>
+      <circle class="l" cx="98" cy="108" r="9" style="stroke-width:1.8"/>
       <path class="k" d="M64 48 L92 48 L92 54 L66 54Z"/>
-      <use href="#wilford" x="68" y="-18" width="38" height="90"/>
-      <path class="p" d="M148 38 L196 38 L190 70 L154 70Z"/>
-      <path class="l" d="M158 44 L160 66 M168 44 L168 66 M178 44 L177 66" style="stroke-width:2"/>
+      <use href="#wilford" x="52" y="-36" width="52" height="124"/>
+      <path class="p" d="M146 36 L198 36 L191 71 L153 71Z"/>
+      <path class="l" d="M156 42 L158 67 M166 42 L166 67 M176 42 L176 67 M186 42 L185 67 M150 52 L195 52 M152 62 L193 62" style="stroke-width:1.4"/>
     </symbol>
   </defs>
 </svg>
@@ -306,9 +338,7 @@
         <use href="#bike" x="470" y="40" width="280" height="294"/>
         <path class="p" d="M236 18 L360 18 L360 62 L276 62 L252 84 L254 62 L236 62Z"/>
         <text class="t" x="298" y="48" font-size="24">ONWARD!</text>
-        <text class="t" x="394" y="196" font-size="26">TOOTY</text>
-        <text class="h" x="394" y="224" font-size="21" text-anchor="middle">(explorer)</text>
-        <path class="l" d="M360 186 Q340 176 322 182"/>
+        <text class="h" x="150" y="238" font-size="21" text-anchor="middle" opacity="0">.</text>
         <text class="h" x="500" y="44" font-size="24">Me. With basket.</text>
         <path class="l" d="M600 52 Q614 74 608 102"/>
         <path class="l" d="M566 118 q-8 4 -10 12 M556 140 q-8 4 -10 12" style="stroke-width:2"/>
@@ -445,24 +475,75 @@
 
   <figure class="panel">
     <svg viewBox="0 0 520 540" role="img" aria-label="A poster on the pub wall: Butley Big Ride, Saturday 9am, 40 miles. First rider to sign on wins the Big Cheese, 9 kilos. A pair of narrowed eyes watches from the edge of the picture.">
+      
+<g transform="rotate(-1.4 215 270)">
+  <rect x="38" y="26" width="386" height="494" fill="#000" opacity=".16"/>
+  <rect x="30" y="18" width="386" height="494" fill="#f7f2e3" stroke="#15161d" stroke-width="1.5"/>
+  <rect x="30" y="18" width="386" height="150" fill="#f3c53a"/>
+  <path d="M30 18 L416 18 L416 168 L30 168Z" fill="none" stroke="#15161d" stroke-width="2"/>
+  <text class="pl" x="223" y="100" font-size="82" textLength="320" lengthAdjust="spacingAndGlyphs">BUTLEY</text>
+  <text class="pl" x="223" y="160" font-size="62" textLength="300" lengthAdjust="spacingAndGlyphs" fill="#a8325e" style="fill:#a8325e">BIG RIDE</text>
+  <rect x="30" y="168" width="386" height="28" fill="#15161d"/>
+  <text class="po" x="223" y="188" font-size="15" textLength="350" lengthAdjust="spacingAndGlyphs" style="fill:#fff">SATURDAY  ·  SIGN-ON FROM 9AM  ·  40 MILES</text>
+  <!-- illustration -->
+  <rect x="30" y="196" width="386" height="132" fill="#f9d9a8"/>
+  <circle cx="150" cy="280" r="46" fill="#a8325e" opacity=".92"/>
+  <path d="M30 304 Q110 262 190 300 T 330 292 T 416 296 L416 328 L30 328Z" fill="#78b358" stroke="#15161d" stroke-width="1.5"/>
+  <path d="M30 316 Q120 292 210 314 T 416 310 L416 328 L30 328Z" fill="#5c9a44"/>
+  <g transform="translate(48 262) scale(1.05)" fill="none" stroke="#15161d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="12" cy="34" r="11"/><circle cx="50" cy="34" r="11"/><path d="M12 34 L26 20 L44 20 L50 34 M26 20 L30 34 L12 34 M30 34 L44 20"/><path d="M26 20 L22 17" /><path d="M44 20 L46 14 L52 14"/>
+<path d="M26 17 Q32 3 42 8 L46 14" stroke-width="5"/><circle cx="43" cy="1" r="5" fill="#15161d"/><path d="M32 34 L36 30" /></g><g transform="translate(118 252) scale(1.25)" fill="none" stroke="#15161d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="12" cy="34" r="11"/><circle cx="50" cy="34" r="11"/><path d="M12 34 L26 20 L44 20 L50 34 M26 20 L30 34 L12 34 M30 34 L44 20"/><path d="M26 20 L22 17" /><path d="M44 20 L46 14 L52 14"/>
+<path d="M26 17 Q32 3 42 8 L46 14" stroke-width="5"/><circle cx="43" cy="1" r="5" fill="#15161d"/><path d="M32 34 L36 30" /></g><g transform="translate(210 258) scale(1.1)" fill="none" stroke="#15161d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="12" cy="34" r="11"/><circle cx="50" cy="34" r="11"/><path d="M12 34 L26 20 L44 20 L50 34 M26 20 L30 34 L12 34 M30 34 L44 20"/><path d="M26 20 L22 17" /><path d="M44 20 L46 14 L52 14"/>
+<path d="M26 17 Q32 3 42 8 L46 14" stroke-width="5"/><circle cx="43" cy="1" r="5" fill="#15161d"/><path d="M32 34 L36 30" /></g>
+  <path d="M30 328 L416 328" stroke="#15161d" stroke-width="2"/>
+  <!-- starburst sticker -->
+  <g transform="translate(332 252) rotate(9)">
+    <path d="M0 -62 L12 -44 L32 -54 L34 -32 L56 -30 L46 -12 L64 2 L46 12 L54 34 L32 32 L28 54 L10 42 L0 62 L-12 44 L-32 54 L-34 32 L-56 30 L-46 12 L-64 -2 L-46 -12 L-54 -34 L-32 -32 L-28 -54 L-10 -42Z" fill="#ff8a1f" stroke="#15161d" stroke-width="2.2"/>
+    <text class="pl" x="0" y="-20" font-size="17" textLength="60" lengthAdjust="spacingAndGlyphs">WIN THE</text>
+    <text class="pl" x="0" y="8" font-size="24" textLength="84" lengthAdjust="spacingAndGlyphs" style="fill:#fdfdfb">BIG CHEESE!</text>
+    <text class="po" x="0" y="30" font-size="12" textLength="76" lengthAdjust="spacingAndGlyphs">9KG · CHEDDAR</text>
+  </g>
+  <!-- body copy -->
+  <text class="pl" x="223" y="372" font-size="25" textLength="330" lengthAdjust="spacingAndGlyphs">FIRST RIDER TO SIGN ON WINS!</text>
+  <path d="M60 380 L386 380" stroke="#15161d" stroke-width="1.2"/>
+  <text class="pn" x="52" y="400" font-size="15">ROUTE:</text>
+  <text class="pn" x="108" y="400" font-size="15" textLength="286" lengthAdjust="spacingAndGlyphs">BUTLEY › ALDERTON › ORFORD › CHILLESFORD › BUTLEY</text>
+  <text class="pn" x="52" y="420" font-size="15" textLength="280" lengthAdjust="spacingAndGlyphs">ENTRY £8  ·  UNDER 16s FREE  ·  HI-VIS ADVISED</text>
+  <text class="pn" x="52" y="440" font-size="15" textLength="270" lengthAdjust="spacingAndGlyphs">TEA &amp; CAKE AT THE FINISH. ALL WELCOME.</text>
+  <!-- sponsors + QR -->
+  <rect x="52" y="450" width="64" height="22" fill="none" stroke="#15161d" stroke-width="1.4"/><text class="po" x="84" y="466" font-size="11">SWAN INN</text>
+  <rect x="122" y="450" width="76" height="22" fill="none" stroke="#15161d" stroke-width="1.4"/><text class="po" x="160" y="466" font-size="11">SPOKE &amp; SON</text>
+  <rect x="204" y="450" width="72" height="22" fill="none" stroke="#15161d" stroke-width="1.4"/><text class="po" x="240" y="466" font-size="11">W.I. CAKES</text>
+  <g transform="translate(346 424) scale(.82)"><g><rect x="-3" y="-3" width="77.39999999999999" height="77.39999999999999" fill="#fff"/><g fill="#15161d"><rect x="23.8" y="0.0" width="3.4" height="3.4"/><rect x="27.2" y="0.0" width="3.4" height="3.4"/><rect x="30.6" y="0.0" width="3.4" height="3.4"/><rect x="34.0" y="0.0" width="3.4" height="3.4"/><rect x="37.4" y="0.0" width="3.4" height="3.4"/><rect x="40.8" y="0.0" width="3.4" height="3.4"/><rect x="30.6" y="3.4" width="3.4" height="3.4"/><rect x="37.4" y="3.4" width="3.4" height="3.4"/><rect x="40.8" y="3.4" width="3.4" height="3.4"/><rect x="44.2" y="3.4" width="3.4" height="3.4"/><rect x="23.8" y="6.8" width="3.4" height="3.4"/><rect x="40.8" y="6.8" width="3.4" height="3.4"/><rect x="44.2" y="6.8" width="3.4" height="3.4"/><rect x="37.4" y="10.2" width="3.4" height="3.4"/><rect x="27.2" y="13.6" width="3.4" height="3.4"/><rect x="30.6" y="13.6" width="3.4" height="3.4"/><rect x="34.0" y="13.6" width="3.4" height="3.4"/><rect x="23.8" y="17.0" width="3.4" height="3.4"/><rect x="44.2" y="17.0" width="3.4" height="3.4"/><rect x="27.2" y="20.4" width="3.4" height="3.4"/><rect x="30.6" y="20.4" width="3.4" height="3.4"/><rect x="34.0" y="20.4" width="3.4" height="3.4"/><rect x="40.8" y="20.4" width="3.4" height="3.4"/><rect x="44.2" y="20.4" width="3.4" height="3.4"/><rect x="3.4" y="23.8" width="3.4" height="3.4"/><rect x="10.2" y="23.8" width="3.4" height="3.4"/><rect x="13.6" y="23.8" width="3.4" height="3.4"/><rect x="20.4" y="23.8" width="3.4" height="3.4"/><rect x="23.8" y="23.8" width="3.4" height="3.4"/><rect x="27.2" y="23.8" width="3.4" height="3.4"/><rect x="34.0" y="23.8" width="3.4" height="3.4"/><rect x="37.4" y="23.8" width="3.4" height="3.4"/><rect x="44.2" y="23.8" width="3.4" height="3.4"/><rect x="54.4" y="23.8" width="3.4" height="3.4"/><rect x="57.8" y="23.8" width="3.4" height="3.4"/><rect x="61.2" y="23.8" width="3.4" height="3.4"/><rect x="0.0" y="27.2" width="3.4" height="3.4"/><rect x="3.4" y="27.2" width="3.4" height="3.4"/><rect x="6.8" y="27.2" width="3.4" height="3.4"/><rect x="10.2" y="27.2" width="3.4" height="3.4"/><rect x="13.6" y="27.2" width="3.4" height="3.4"/><rect x="34.0" y="27.2" width="3.4" height="3.4"/><rect x="37.4" y="27.2" width="3.4" height="3.4"/><rect x="47.6" y="27.2" width="3.4" height="3.4"/><rect x="61.2" y="27.2" width="3.4" height="3.4"/><rect x="64.6" y="27.2" width="3.4" height="3.4"/><rect x="68.0" y="27.2" width="3.4" height="3.4"/><rect x="0.0" y="30.6" width="3.4" height="3.4"/><rect x="3.4" y="30.6" width="3.4" height="3.4"/><rect x="10.2" y="30.6" width="3.4" height="3.4"/><rect x="13.6" y="30.6" width="3.4" height="3.4"/><rect x="17.0" y="30.6" width="3.4" height="3.4"/><rect x="20.4" y="30.6" width="3.4" height="3.4"/><rect x="27.2" y="30.6" width="3.4" height="3.4"/><rect x="30.6" y="30.6" width="3.4" height="3.4"/><rect x="34.0" y="30.6" width="3.4" height="3.4"/><rect x="40.8" y="30.6" width="3.4" height="3.4"/><rect x="44.2" y="30.6" width="3.4" height="3.4"/><rect x="47.6" y="30.6" width="3.4" height="3.4"/><rect x="51.0" y="30.6" width="3.4" height="3.4"/><rect x="54.4" y="30.6" width="3.4" height="3.4"/><rect x="61.2" y="30.6" width="3.4" height="3.4"/><rect x="64.6" y="30.6" width="3.4" height="3.4"/><rect x="68.0" y="30.6" width="3.4" height="3.4"/><rect x="0.0" y="34.0" width="3.4" height="3.4"/><rect x="6.8" y="34.0" width="3.4" height="3.4"/><rect x="17.0" y="34.0" width="3.4" height="3.4"/><rect x="23.8" y="34.0" width="3.4" height="3.4"/><rect x="27.2" y="34.0" width="3.4" height="3.4"/><rect x="30.6" y="34.0" width="3.4" height="3.4"/><rect x="34.0" y="34.0" width="3.4" height="3.4"/><rect x="37.4" y="34.0" width="3.4" height="3.4"/><rect x="40.8" y="34.0" width="3.4" height="3.4"/><rect x="51.0" y="34.0" width="3.4" height="3.4"/><rect x="54.4" y="34.0" width="3.4" height="3.4"/><rect x="57.8" y="34.0" width="3.4" height="3.4"/><rect x="61.2" y="34.0" width="3.4" height="3.4"/><rect x="64.6" y="34.0" width="3.4" height="3.4"/><rect x="68.0" y="34.0" width="3.4" height="3.4"/><rect x="3.4" y="37.4" width="3.4" height="3.4"/><rect x="6.8" y="37.4" width="3.4" height="3.4"/><rect x="20.4" y="37.4" width="3.4" height="3.4"/><rect x="37.4" y="37.4" width="3.4" height="3.4"/><rect x="40.8" y="37.4" width="3.4" height="3.4"/><rect x="44.2" y="37.4" width="3.4" height="3.4"/><rect x="57.8" y="37.4" width="3.4" height="3.4"/><rect x="13.6" y="40.8" width="3.4" height="3.4"/><rect x="23.8" y="40.8" width="3.4" height="3.4"/><rect x="37.4" y="40.8" width="3.4" height="3.4"/><rect x="44.2" y="40.8" width="3.4" height="3.4"/><rect x="54.4" y="40.8" width="3.4" height="3.4"/><rect x="57.8" y="40.8" width="3.4" height="3.4"/><rect x="3.4" y="44.2" width="3.4" height="3.4"/><rect x="6.8" y="44.2" width="3.4" height="3.4"/><rect x="13.6" y="44.2" width="3.4" height="3.4"/><rect x="20.4" y="44.2" width="3.4" height="3.4"/><rect x="40.8" y="44.2" width="3.4" height="3.4"/><rect x="47.6" y="44.2" width="3.4" height="3.4"/><rect x="57.8" y="44.2" width="3.4" height="3.4"/><rect x="64.6" y="44.2" width="3.4" height="3.4"/><rect x="68.0" y="44.2" width="3.4" height="3.4"/><rect x="27.2" y="47.6" width="3.4" height="3.4"/><rect x="37.4" y="47.6" width="3.4" height="3.4"/><rect x="40.8" y="47.6" width="3.4" height="3.4"/><rect x="51.0" y="47.6" width="3.4" height="3.4"/><rect x="61.2" y="47.6" width="3.4" height="3.4"/><rect x="68.0" y="47.6" width="3.4" height="3.4"/><rect x="27.2" y="51.0" width="3.4" height="3.4"/><rect x="30.6" y="51.0" width="3.4" height="3.4"/><rect x="34.0" y="51.0" width="3.4" height="3.4"/><rect x="40.8" y="51.0" width="3.4" height="3.4"/><rect x="44.2" y="51.0" width="3.4" height="3.4"/><rect x="57.8" y="51.0" width="3.4" height="3.4"/><rect x="68.0" y="51.0" width="3.4" height="3.4"/><rect x="27.2" y="54.4" width="3.4" height="3.4"/><rect x="30.6" y="54.4" width="3.4" height="3.4"/><rect x="37.4" y="54.4" width="3.4" height="3.4"/><rect x="44.2" y="54.4" width="3.4" height="3.4"/><rect x="51.0" y="54.4" width="3.4" height="3.4"/><rect x="54.4" y="54.4" width="3.4" height="3.4"/><rect x="57.8" y="54.4" width="3.4" height="3.4"/><rect x="61.2" y="54.4" width="3.4" height="3.4"/><rect x="27.2" y="57.8" width="3.4" height="3.4"/><rect x="30.6" y="57.8" width="3.4" height="3.4"/><rect x="37.4" y="57.8" width="3.4" height="3.4"/><rect x="44.2" y="57.8" width="3.4" height="3.4"/><rect x="47.6" y="57.8" width="3.4" height="3.4"/><rect x="51.0" y="57.8" width="3.4" height="3.4"/><rect x="57.8" y="57.8" width="3.4" height="3.4"/><rect x="30.6" y="61.2" width="3.4" height="3.4"/><rect x="37.4" y="61.2" width="3.4" height="3.4"/><rect x="44.2" y="61.2" width="3.4" height="3.4"/><rect x="57.8" y="61.2" width="3.4" height="3.4"/><rect x="61.2" y="61.2" width="3.4" height="3.4"/><rect x="68.0" y="61.2" width="3.4" height="3.4"/><rect x="27.2" y="64.6" width="3.4" height="3.4"/><rect x="30.6" y="64.6" width="3.4" height="3.4"/><rect x="34.0" y="64.6" width="3.4" height="3.4"/><rect x="40.8" y="64.6" width="3.4" height="3.4"/><rect x="47.6" y="64.6" width="3.4" height="3.4"/><rect x="54.4" y="64.6" width="3.4" height="3.4"/><rect x="61.2" y="64.6" width="3.4" height="3.4"/><rect x="64.6" y="64.6" width="3.4" height="3.4"/><rect x="23.8" y="68.0" width="3.4" height="3.4"/><rect x="30.6" y="68.0" width="3.4" height="3.4"/><rect x="34.0" y="68.0" width="3.4" height="3.4"/><rect x="37.4" y="68.0" width="3.4" height="3.4"/><rect x="40.8" y="68.0" width="3.4" height="3.4"/><rect x="61.2" y="68.0" width="3.4" height="3.4"/><rect x="68.0" y="68.0" width="3.4" height="3.4"/></g><rect x="0.0" y="0.0" width="23.8" height="23.8" fill="#15161d"/><rect x="3.4" y="3.4" width="17.0" height="17.0" fill="#fff"/><rect x="6.8" y="6.8" width="10.2" height="10.2" fill="#15161d"/><rect x="47.6" y="0.0" width="23.8" height="23.8" fill="#15161d"/><rect x="51.0" y="3.4" width="17.0" height="17.0" fill="#fff"/><rect x="54.4" y="6.8" width="10.2" height="10.2" fill="#15161d"/><rect x="0.0" y="47.6" width="23.8" height="23.8" fill="#15161d"/><rect x="3.4" y="51.0" width="17.0" height="17.0" fill="#fff"/><rect x="6.8" y="54.4" width="10.2" height="10.2" fill="#15161d"/></g></g>
+  <text class="pn" x="364" y="494" font-size="9" text-anchor="middle">SIGN ON ONLINE</text>
+  <!-- tear-off strips -->
+  <path d="M30 482 L276 482" stroke="#15161d" stroke-width="1" stroke-dasharray="4 3"/>
+  <g stroke="#15161d" stroke-width="1" stroke-dasharray="4 3"><path d="M52 482 L52 512 M82 482 L82 512 M112 482 L112 512 M142 482 L142 512 M172 482 L172 512 M202 482 L202 512 M232 482 L232 512 M262 482 L262 512"/></g>
+  <g class="pn" font-size="7.5">
+   <text transform="translate(44 510) rotate(-90)">SHEILA 0142</text>
+   <text transform="translate(74 510) rotate(-90)">SHEILA 0142</text>
+   <text transform="translate(104 510) rotate(-90)">SHEILA 0142</text>
+   <text transform="translate(134 510) rotate(-90)">SHEILA 0142</text>
+   <text transform="translate(164 510) rotate(-90)">SHEILA 0142</text>
+   <text transform="translate(194 510) rotate(-90)">SHEILA 0142</text>
+  </g>
+  <!-- pins -->
+  <circle cx="42" cy="30" r="6" fill="#a8325e" stroke="#15161d" stroke-width="1.5"/><circle cx="40" cy="28" r="1.8" fill="#fff" opacity=".7"/>
+  <circle cx="404" cy="30" r="6" fill="#a8325e" stroke="#15161d" stroke-width="1.5"/><circle cx="402" cy="28" r="1.8" fill="#fff" opacity=".7"/>
+  <!-- curled corner -->
+  <path d="M416 512 L384 512 L416 484Z" fill="#e8e0c8" stroke="#15161d" stroke-width="1.4"/>
+</g>
+
       <g filter="url(#wob)">
-        <circle class="p" cx="448" cy="64" r="44"/><circle class="l" cx="448" cy="64" r="28"/><circle class="k" cx="448" cy="64" r="6"/>
-        <path class="l" d="M448 20 L448 108 M404 64 L492 64"/>
-        <path class="l" d="M470 90 L430 60 M436 56 l-6 -8 l12 2"/>
-        <g transform="rotate(-2 220 280)">
-          <rect class="p" x="40" y="30" width="330" height="480"/>
-          <rect class="c" x="22" y="22" width="56" height="22" transform="rotate(-30 50 33)" opacity=".85"/>
-          <rect class="c" x="332" y="22" width="56" height="22" transform="rotate(28 360 33)" opacity=".85"/>
-          <text class="t" x="205" y="108" font-size="62">BUTLEY</text>
-          <text class="t" x="205" y="170" font-size="62">BIG RIDE</text>
-          <path class="l" d="M70 190 Q205 200 340 188"/>
-          <text class="h" x="205" y="226" font-size="24" text-anchor="middle">SATURDAY. 9AM. 40 MILES.</text>
-          <use href="#cheese" x="95" y="246" width="220" height="168"/>
-          <path class="l" d="M82 262 L96 276 M60 300 L82 304 M330 262 L318 278 M352 304 L330 306 M205 232 L205 244" style="stroke-width:2.6"/>
-          <text class="t" x="205" y="450" font-size="21">FIRST RIDER TO SIGN ON</text>
-          <text class="t" x="205" y="478" font-size="21">WINS THE BIG CHEESE (9kg)</text>
-          <text class="h" x="205" y="500" font-size="15" text-anchor="middle">Starts and finishes at Butley Village Hall</text>
-        </g>
+        <circle class="p" cx="462" cy="64" r="44"/><circle class="b" cx="462" cy="64" r="30"/><circle class="p" cx="462" cy="64" r="18"/><circle class="b" cx="462" cy="64" r="6"/>
+        <path class="l" d="M462 20 L462 108 M418 64 L506 64"/>
+        <path class="l" d="M476 92 L444 56 M448 52 l-8 -2 l4 10" style="stroke-width:3.4"/>
+        <g transform="rotate(5 466 176)"><rect class="p" x="428" y="124" width="76" height="104"/><circle class="b" cx="466" cy="130" r="4"/>
+        <text class="t" x="466" y="150" font-size="14">LOST</text><path class="k" d="M450 196 L450 170 L458 178 L474 178 L482 170 L482 196 Q466 206 450 196Z"/><circle class="c" cx="460" cy="184" r="2.4"/><circle class="c" cx="472" cy="184" r="2.4"/>
+        <text class="h" x="466" y="218" font-size="11" text-anchor="middle" textLength="62" lengthAdjust="spacingAndGlyphs">Answers to Duck</text></g>
+        
         <ellipse class="p" cx="446" cy="420" rx="22" ry="15"/><ellipse class="p" cx="494" cy="418" rx="22" ry="15"/>
         <circle class="k" cx="436" cy="421" r="6"/><circle class="k" cx="484" cy="419" r="6"/>
         <path class="l" d="M420 398 L460 410 M516 396 L478 408" style="stroke-width:4.4"/>
@@ -584,7 +665,7 @@
         <rect class="p" x="520" y="252" width="62" height="110"/><circle class="k" cx="572" cy="301" r="4.5"/>
         <rect class="p" x="450" y="206" width="52" height="46"/><path class="l" d="M476 206 L476 252 M450 229 L502 229"/>
         <rect class="p" x="610" y="206" width="52" height="46"/><path class="l" d="M636 206 L636 252 M610 229 L662 229"/>
-        <rect class="p" x="486" y="172" width="130" height="26"/><text class="t" x="551" y="190" font-size="12">BUTLEY VILLAGE HALL</text>
+        <rect class="p" x="486" y="172" width="130" height="26"/><text class="t" x="551" y="190" font-size="11" textLength="116" lengthAdjust="spacingAndGlyphs">BUTLEY VILLAGE HALL</text>
         <path class="l" d="M700 172 L700 360"/>
         <path class="l" d="M455 140 L455 24"/><path class="o" d="M455 24 L520 28 L504 44 L520 60 L455 56Z"/>
         <path class="l" d="M418 132 Q570 100 722 132"/>
@@ -728,5 +809,6 @@
 
   <p class="endmark">End of Episode 1</p>
 </main>
+
 </body>
 </html>
