@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tooty Beetroot</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Permanent+Marker&family=Special+Elite&display=swap">
+<style>
+  /* Layout concept: a school exercise book. Ruled text blocks, margin line, drawings stuck in as boxed panels. */
+  :root {
+    --desk: #e4e8f1;
+    --paper: #fdfdff;
+    --ink: #1c1e2b;
+    --rule: #c3d6ee;
+    --margin: #e8908f;
+    --beet: #a8325e;
+    --cheese: #f3c53a;
+    --velvet: #3d2f73;
+    --hivis: #ff8a1f;
+    --hedge: #78b358;
+    --water: #bfe1f6;
+    --note: #fff1a8;
+    --lh: 32px;
+    --pad: 64px;
+    --fs: 21px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --desk: #0f111a; --paper: #1a1e2d; --ink: #ecedf6; --rule: #2b3855; --margin: #84404f;
+      --beet: #d9709a; --cheese: #f1c94d; --velvet: #9d8de0; --hivis: #ff9a3c; --hedge: #4e8a3e; --water: #2d5a7c; --note: #5a5223;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --desk: #0f111a; --paper: #1a1e2d; --ink: #ecedf6; --rule: #2b3855; --margin: #84404f;
+    --beet: #d9709a; --cheese: #f1c94d; --velvet: #9d8de0; --hivis: #ff9a3c; --hedge: #4e8a3e; --water: #2d5a7c; --note: #5a5223;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--desk); color: var(--ink);
+    font-family: 'Patrick Hand', 'Comic Sans MS', 'Chalkboard SE', cursive;
+    font-size: var(--fs); line-height: var(--lh);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 32px 64px;
+  }
+  .book { max-width: 760px; margin: 0 auto; background: var(--paper); border: 3px solid var(--ink); border-radius: 6px 14px 8px 12px; padding: 28px 22px 40px; box-shadow: 6px 8px 0 rgba(0,0,0,.12); }
+  .tag { display: inline-block; font-size: 17px; line-height: 1.3; border: 2px dashed var(--ink); padding: 6px 12px; transform: rotate(-2deg); margin: 0 0 18px; }
+  .eplabel { font-family: 'Permanent Marker', cursive; font-size: 18px; letter-spacing: .12em; text-transform: uppercase; color: var(--beet); margin: 0; line-height: 1.2; }
+  h1 { font-family: 'Permanent Marker', cursive; font-weight: 400; font-size: clamp(40px, 9vw, 68px); line-height: 1; margin: 6px 0 0; text-wrap: balance; transform: rotate(-1deg); }
+  .sub { font-family: 'Permanent Marker', cursive; font-size: clamp(22px, 4.6vw, 32px); line-height: 1.15; margin: 10px 0 22px; text-wrap: balance; }
+  .sub span { background: linear-gradient(transparent 55%, var(--cheese) 55% 92%, transparent 92%); padding: 0 4px; }
+  h2.entry { font-family: 'Permanent Marker', cursive; font-weight: 400; font-size: 21px; line-height: 1.25; margin: 44px 0 14px; display: inline-block; border-bottom: 4px solid var(--beet); padding-bottom: 2px; transform: rotate(-.6deg); text-wrap: balance; }
+  .lined { position: relative; padding: 0 6px 0 var(--pad); background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--lh) - 1px), var(--rule) calc(var(--lh) - 1px), var(--rule) var(--lh)); }
+  .lined::before { content: ""; position: absolute; left: calc(var(--pad) - 16px); top: 0; bottom: 0; width: 2px; background: var(--margin); }
+  .lined p { margin: 0 0 var(--lh); }
+  .lined p:last-child { margin-bottom: 0; }
+  .shout { font-family: 'Permanent Marker', cursive; font-size: .86em; letter-spacing: .01em; }
+  .call { font-family: 'Permanent Marker', cursive; font-size: .8em; color: var(--velvet); }
+  .sign { font-family: 'Permanent Marker', cursive; font-size: .8em; border: 2px solid var(--ink); padding: 0 6px; }
+  figure.panel { margin: 28px 0; padding: 8px; border: 3px solid var(--ink); border-radius: 4px 10px 5px 9px; background: var(--paper); }
+  figure.panel svg { display: block; width: 100%; height: auto; }
+  figure.panel figcaption { font-size: 18px; line-height: 24px; padding: 6px 6px 2px; opacity: .85; }
+  .note { margin: 32px 0 32px 0; max-width: 360px; background: var(--note); border: 2px solid var(--ink); padding: 14px 18px 12px; transform: rotate(1.6deg); box-shadow: 3px 4px 0 rgba(0,0,0,.14); }
+  .note h3 { font-family: 'Permanent Marker', cursive; font-weight: 400; font-size: 17px; margin: 0 0 6px; line-height: 1.25; }
+  .note ol { margin: 0; padding-left: 26px; font-size: 20px; line-height: 28px; }
+  .report { margin: 36px 0 28px; position: relative; background: var(--paper); border: 2px solid var(--ink); padding: 26px 22px 22px; font-family: 'Special Elite', 'Courier New', monospace; font-size: 16.5px; line-height: 26px; transform: rotate(-.8deg); box-shadow: 4px 5px 0 rgba(0,0,0,.14); }
+  .report::before, .report::after { content: ""; position: absolute; top: -10px; width: 64px; height: 22px; background: var(--cheese); opacity: .8; border: 1px solid var(--ink); }
+  .report::before { left: 18px; transform: rotate(-5deg); }
+  .report::after { right: 18px; transform: rotate(4deg); }
+  .report h3 { font-family: 'Special Elite', 'Courier New', monospace; font-weight: 400; font-size: 20px; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 14px; line-height: 1.25; }
+  .report dl { margin: 0; display: grid; grid-template-columns: 112px 1fr; gap: 10px 14px; }
+  .report dt { text-transform: uppercase; letter-spacing: .06em; font-size: 14px; padding-top: 2px; }
+  .report dd { margin: 0; min-width: 0; }
+  .stamp { position: absolute; right: 16px; bottom: 14px; font-family: 'Permanent Marker', cursive; font-size: 30px; color: var(--beet); border: 4px solid var(--beet); padding: 0 10px; transform: rotate(-9deg); letter-spacing: .06em; opacity: .9; line-height: 1.2; }
+  .end { margin-top: 32px; }
+  .endmark { font-family: 'Permanent Marker', cursive; text-align: center; margin: 42px 0 0; font-size: 18px; opacity: .8; }
+
+  .l, .p, .b, .c, .v, .o, .g, .w { stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .l { fill: none; }
+  .p { fill: var(--paper); } .b { fill: var(--beet); } .c { fill: var(--cheese); }
+  .v { fill: var(--velvet); } .o { fill: var(--hivis); } .g { fill: var(--hedge); } .w { fill: var(--water); }
+  .k { fill: var(--ink); stroke: none; }
+  .sh { fill: var(--ink); opacity: .1; stroke: none; }
+  .r { fill: var(--beet); opacity: .38; stroke: none; }
+  .t { font-family: 'Permanent Marker', cursive; fill: var(--ink); text-anchor: middle; }
+  .h { font-family: 'Patrick Hand', cursive; fill: var(--ink); }
+  .d { stroke-dasharray: 3 7; }
+
+  @media (max-width: 560px) {
+    :root { --lh: 30px; --pad: 38px; --fs: 19px; }
+    .book { padding: 20px 12px 32px; }
+    .lined::before { left: calc(var(--pad) - 12px); }
+    .report dl { grid-template-columns: 1fr; gap: 2px; }
+    .report dd { margin-bottom: 10px; }
+    .stamp { position: static; display: inline-block; margin-top: 8px; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    figure.panel { transition: transform .2s; }
+    figure.panel:hover { transform: rotate(-.4deg); }
+  }
+</style>
+
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="wob" filterUnits="userSpaceOnUse" x="-40" y="-40" width="1000" height="700">
+      <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+
+    <!-- TOOTY: shared body and head, then one symbol per pose -->
+    <symbol id="tcore" viewBox="0 0 120 170">
+      <ellipse class="sh" cx="60" cy="166" rx="42" ry="6"/>
+      <path class="l" d="M50 146 L48 160 M70 146 L72 160"/>
+      <path class="k" d="M30 164 C30 157 52 157 54 164 C54 169 30 169 30 164Z M66 164 C66 157 90 157 90 164 C90 169 66 169 66 164Z"/>
+      <path class="b" d="M37 92 C27 126 33 148 60 148 C87 148 93 126 83 92 C73 84 47 84 37 92Z"/>
+      <path class="l" d="M40 112 L48 120 M38 124 L48 132 M43 100 L49 106 M80 114 L72 122" style="stroke-width:2"/>
+      <circle class="k" cx="60" cy="104" r="2.6"/><circle class="k" cx="60" cy="117" r="2.6"/><circle class="k" cx="60" cy="130" r="2.6"/>
+      <path class="l" d="M60 107 Q77 109 74 125" style="stroke-width:2.4"/>
+      <ellipse class="p" cx="60" cy="68" rx="24" ry="24"/>
+      <circle class="r" cx="41" cy="85" r="5.5"/><circle class="r" cx="79" cy="85" r="5.5"/>
+      <path class="p" d="M34 62 C30 22 90 22 86 62Z"/>
+      <path class="p" d="M19 65 Q60 48 101 65 Q60 71 19 65Z"/>
+      <path class="l" d="M33 55 Q60 49 87 55"/><circle class="p" cx="60" cy="26" r="3"/>
+      <path class="l" d="M42 76 L57 72 M63 72 L80 75" style="stroke-width:4.5"/>
+      <circle class="k" cx="50" cy="80" r="2.8"/>
+      <circle class="l" cx="71" cy="80" r="7.5"/><circle class="k" cx="71" cy="80" r="2.8"/>
+      <path class="l" d="M78 84 Q92 94 88 110" style="stroke-width:2"/>
+      <path class="l" d="M60 80 Q56 86 61 88"/>
+      <path class="k" d="M60 91 C50 83 34 89 27 78 C31 101 50 101 60 93 C70 101 89 101 93 78 C86 89 70 83 60 91Z"/>
+    </symbol>
+    <symbol id="tooty" viewBox="0 0 120 170">
+      <use href="#tcore"/>
+      <path class="l" d="M40 98 Q22 112 22 130"/><circle class="p" cx="22" cy="133" r="4.5"/>
+      <path class="l" d="M80 98 Q100 92 106 74"/><circle class="p" cx="106" cy="69" r="5"/>
+    </symbol>
+    <symbol id="tootyUp" viewBox="0 0 120 170">
+      <use href="#tcore"/>
+      <path class="l" d="M40 98 Q14 92 24 58"/><circle class="p" cx="24" cy="53" r="5.5"/>
+      <path class="l" d="M80 98 Q106 92 96 58"/><circle class="p" cx="96" cy="53" r="5.5"/>
+    </symbol>
+    <symbol id="tootyBurst" viewBox="0 0 120 170">
+      <use href="#tcore"/>
+      <path class="l" d="M40 98 Q16 102 6 84"/><circle class="p" cx="5" cy="79" r="5.5"/>
+      <path class="l" d="M80 98 Q104 102 114 84"/><circle class="p" cx="115" cy="79" r="5.5"/>
+      <ellipse class="k" cx="60" cy="100" rx="9" ry="6.5"/>
+    </symbol>
+    <symbol id="tootyShake" viewBox="0 0 120 170">
+      <use href="#tcore"/>
+      <path class="l" d="M40 98 Q22 112 22 130"/><circle class="p" cx="22" cy="133" r="4.5"/>
+      <path class="l" d="M80 100 Q98 102 112 106"/><circle class="p" cx="114" cy="106" r="5.5"/>
+    </symbol>
+
+    <!-- WILFORD -->
+    <symbol id="wcore" viewBox="0 0 80 190">
+      <ellipse class="sh" cx="40" cy="186" rx="32" ry="5"/>
+      <path class="l" d="M32 130 L30 176 M48 130 L50 176"/>
+      <path class="k" d="M14 181 C14 175 36 175 36 181 C36 186 14 186 14 181Z M44 181 C44 175 66 175 66 181 C66 186 44 186 44 181Z"/>
+      <path class="p" d="M24 60 L56 60 L60 134 L20 134Z"/>
+      <path class="l" d="M22 96 L58 96 M21 114 L59 114" style="stroke-width:2.4"/>
+      <circle class="p" cx="40" cy="42" r="17"/>
+      <path class="p" d="M23 38 C24 18 56 18 57 38Z"/><path class="p" d="M52 36 L74 40 L52 42Z"/>
+      <circle class="l" cx="33" cy="45" r="6.5"/><circle class="l" cx="47" cy="45" r="6.5"/><path class="l" d="M39.5 45 h1" style="stroke-width:2"/>
+      <circle class="k" cx="33" cy="47" r="2"/><circle class="k" cx="47" cy="47" r="2"/>
+      <path class="l" d="M26 41 h14 M40 41 h14"/>
+      <path class="l" d="M29 53 Q33 55 37 53 M43 53 Q47 55 51 53" style="stroke-width:1.8"/>
+      <path class="l" d="M34 58 h12" style="stroke-width:2.4"/>
+    </symbol>
+    <symbol id="wilford" viewBox="0 0 80 190">
+      <use href="#wcore"/>
+      <path class="l" d="M24 64 Q12 100 16 128"/><circle class="p" cx="16" cy="131" r="4.5"/>
+      <path class="l" d="M56 64 Q68 100 64 128"/>
+      <path class="l" d="M26 62 L58 120"/><rect class="p" x="48" y="112" width="20" height="18" rx="3"/>
+    </symbol>
+    <symbol id="wilfordPalm" viewBox="0 0 80 190">
+      <use href="#wcore"/>
+      <path class="l" d="M24 64 Q12 100 16 128"/><circle class="p" cx="16" cy="131" r="4.5"/>
+      <path class="l" d="M56 64 Q72 62 58 50"/>
+      <ellipse class="p" cx="45" cy="45" rx="14" ry="10"/>
+      <path class="l" d="M36 40 L36 50 M42 38 L42 52 M48 38 L48 52 M54 40 L54 50" style="stroke-width:2"/>
+    </symbol>
+    <symbol id="wilfordShrug" viewBox="0 0 80 190">
+      <use href="#wcore"/>
+      <path class="l" d="M24 66 Q6 84 2 68"/><circle class="p" cx="2" cy="65" r="5"/>
+      <path class="l" d="M56 66 Q74 84 78 68"/><circle class="p" cx="78" cy="65" r="5"/>
+      <path class="l" d="M26 36 Q33 31 39 36 M41 36 Q47 31 54 36" style="stroke-width:2.2"/>
+    </symbol>
+
+    <!-- COMPTON -->
+    <symbol id="compton" viewBox="0 -16 90 206">
+      <ellipse class="sh" cx="45" cy="186" rx="34" ry="5"/>
+      <path class="l" d="M38 132 L37 176 M52 132 L53 176"/>
+      <path class="k" d="M24 183 L40 175 L40 185Z M66 183 L50 175 L50 185Z"/>
+      <path class="v" d="M26 62 L64 62 L72 138 L18 138Z"/>
+      <path class="l" d="M45 64 L45 138 M34 62 L45 86 L56 62"/>
+      <path class="l" d="M26 66 Q10 100 14 132"/>
+      <path class="l" d="M64 66 Q84 82 77 56 L77 40"/>
+      <path class="k" d="M14 128 L10 136 L19 134Z"/>
+      <ellipse class="p" cx="45" cy="40" rx="14" ry="18"/>
+      <path class="k" d="M30 34 L28 46 L33 40Z M60 34 L62 46 L57 40Z"/>
+      <path class="k" d="M26 21 L68 21 L66 26 L28 26Z"/>
+      <path class="k" d="M31 21 L33 -6 L57 -6 L59 21Z"/>
+      <path class="v" d="M32 12 L58 12 L58 18 L32 18Z"/>
+      <circle class="k" cx="39" cy="42" r="2.2"/><circle class="k" cx="51" cy="42" r="2.2"/>
+      <path class="l" d="M32 35 L43 39 M58 35 L47 39" style="stroke-width:3.4"/>
+      <path class="l" d="M39 49 Q45 46 51 49"/>
+      <path class="l" d="M37 53 Q45 62 53 53"/>
+      <path class="k" d="M45 64 L35 58 L35 70Z M45 64 L55 58 L55 70Z"/>
+    </symbol>
+
+    <!-- BINGO CROWD -->
+    <symbol id="punter" viewBox="0 0 60 80">
+      <path class="p" d="M8 80 C8 46 52 46 52 80Z"/>
+      <circle class="p" cx="30" cy="26" r="14"/>
+      <circle class="k" cx="25" cy="26" r="2"/><circle class="k" cx="36" cy="26" r="2"/>
+      <path class="l" d="M24 35 h12" style="stroke-width:2.4"/>
+      <rect class="p" x="21" y="52" width="19" height="14" transform="rotate(-8 30 59)"/>
+      <path class="l" d="M42 60 L50 50"/>
+    </symbol>
+    <symbol id="punterShock" viewBox="0 0 60 80">
+      <path class="p" d="M8 80 C8 46 52 46 52 80Z"/>
+      <circle class="p" cx="30" cy="26" r="14"/>
+      <path class="l" d="M16 16 Q30 2 44 16" style="stroke-width:2.4"/>
+      <circle class="l" cx="25" cy="26" r="4" style="stroke-width:2"/><circle class="l" cx="36" cy="26" r="4" style="stroke-width:2"/>
+      <circle class="k" cx="25" cy="26" r="1.4"/><circle class="k" cx="36" cy="26" r="1.4"/>
+      <ellipse class="k" cx="30" cy="36" rx="3" ry="4"/>
+      <rect class="p" x="21" y="52" width="19" height="14" transform="rotate(-8 30 59)"/>
+    </symbol>
+    <symbol id="punterHat" viewBox="0 0 60 80">
+      <path class="p" d="M8 80 C8 46 52 46 52 80Z"/>
+      <circle class="p" cx="30" cy="26" r="14"/>
+      <path class="v" d="M12 20 Q30 -2 48 20 Q30 14 12 20Z"/>
+      <circle class="k" cx="25" cy="28" r="2"/><circle class="k" cx="36" cy="28" r="2"/>
+      <path class="l" d="M24 37 Q30 33 36 37" style="stroke-width:2.4"/>
+      <rect class="p" x="21" y="52" width="19" height="14" transform="rotate(-8 30 59)"/>
+      <path class="l" d="M42 60 L50 50"/>
+    </symbol>
+
+    <symbol id="duck" viewBox="0 0 74 62">
+      <ellipse class="sh" cx="36" cy="58" rx="30" ry="3.5"/>
+      <path class="p" d="M6 36 C6 56 52 60 60 40 C63 30 54 26 48 26 C40 26 34 32 28 30 C18 28 6 26 6 36Z"/>
+      <circle class="p" cx="50" cy="19" r="10"/>
+      <path class="c" d="M58 19 L72 23 L58 27Z"/>
+      <circle class="k" cx="53" cy="17" r="1.9"/>
+      <path class="l" d="M48 12 L58 14"/>
+      <path class="l" d="M18 38 Q28 48 42 38"/>
+    </symbol>
+
+    <symbol id="cheese" viewBox="0 0 110 84">
+      <path class="c" d="M7 28 L7 56 C7 76 103 76 103 56 L103 28 C103 50 7 50 7 28Z"/>
+      <path class="l" d="M20 46 L16 62 M34 52 L30 68 M52 55 L50 72 M72 54 L74 70 M90 48 L94 62" style="stroke-width:1.8"/>
+      <ellipse class="c" cx="55" cy="28" rx="48" ry="20"/>
+      <ellipse class="p" cx="36" cy="27" rx="6" ry="3"/><ellipse class="p" cx="64" cy="31" rx="8" ry="3.5"/><ellipse class="p" cx="84" cy="24" rx="4" ry="2"/>
+      <circle class="p" cx="26" cy="60" r="4"/><circle class="p" cx="72" cy="63" r="5"/><circle class="p" cx="50" cy="56" r="3"/>
+    </symbol>
+
+    <symbol id="penny" viewBox="0 -50 200 220">
+      <circle class="l" cx="72" cy="106" r="58"/>
+      <circle class="l" cx="72" cy="106" r="52" style="stroke-width:1.6"/>
+      <path class="l" d="M72 106 L130 106 M72 106 L113 147 M72 106 L72 164 M72 106 L31 147 M72 106 L14 106 M72 106 L31 65 M72 106 L72 48 M72 106 L113 65" style="stroke-width:2"/>
+      <circle class="k" cx="72" cy="106" r="5"/>
+      <circle class="l" cx="172" cy="146" r="20"/>
+      <path class="l" d="M172 146 L192 146 M172 146 L152 146 M172 146 L172 126 M172 146 L172 166" style="stroke-width:2"/>
+      <path class="l" d="M72 106 L84 44 Q140 70 172 146"/>
+      <path class="l" d="M72 106 L60 54 L44 52"/>
+      <path class="k" d="M72 42 L102 42 L100 48 L74 48Z"/>
+      <use href="#tooty" x="56" y="-48" width="64" height="90"/>
+    </symbol>
+
+    <symbol id="bike" viewBox="0 -60 200 210">
+      <circle class="l" cx="42" cy="108" r="34"/><circle class="l" cx="158" cy="108" r="34"/>
+      <circle class="k" cx="42" cy="108" r="4"/><circle class="k" cx="158" cy="108" r="4"/>
+      <path class="l" d="M42 108 L80 60 L130 60 L158 108 M80 60 L98 108 L42 108 M98 108 L130 60 M80 60 L74 50 M130 60 L134 44 L150 44"/>
+      <path class="k" d="M64 48 L92 48 L92 54 L66 54Z"/>
+      <use href="#wilford" x="68" y="-18" width="38" height="90"/>
+      <path class="p" d="M148 38 L196 38 L190 70 L154 70Z"/>
+      <path class="l" d="M158 44 L160 66 M168 44 L168 66 M178 44 L177 66" style="stroke-width:2"/>
+    </symbol>
+  </defs>
+</svg>
+
+<main class="book">
+
+  <p class="tag">Property of W. Bridge.<br>Not to be read by T. Beetroot.</p>
+  <p class="eplabel">Episode 1</p>
+  <h1>Tooty Beetroot</h1>
+  <p class="sub">and the Hunt for <span>Butley Village-Hall</span></p>
+
+  <figure class="panel">
+    <svg viewBox="0 0 800 340" role="img" aria-label="Tooty Beetroot on a penny-farthing bicycle, shouting Onward. Wilford Bridge on an ordinary bike with a basket, looking tired.">
+      <g filter="url(#wob)">
+        <path class="p" d="M396 96 q10 -26 36 -14 q14 -22 40 -4 q26 -6 24 18 q-8 14 -30 10 q-20 12 -38 -2 q-24 6 -32 -8Z"/>
+        <circle class="c" cx="720" cy="70" r="26"/>
+        <path class="l" d="M720 28 L720 20 M720 112 L720 120 M678 70 L670 70 M762 70 L770 70 M690 40 L684 34 M750 100 L756 106 M690 100 L684 106 M750 40 L756 34" style="stroke-width:2.4"/>
+        <path class="l" d="M0 276 Q90 232 200 268 T 420 258 T 620 262 T 800 246" style="stroke-width:2"/>
+        <path class="l" d="M300 28 q8 -8 16 0 q8 -8 16 0 M370 14 q6 -6 12 0 q6 -6 12 0" style="stroke-width:2"/>
+        <path class="l" d="M12 336 L100 336 M180 336 L300 336 M400 336 L560 336 M640 336 L790 336" style="stroke-width:2" opacity=".5"/>
+        <line class="l" x1="10" y1="323" x2="790" y2="323"/>
+        <use href="#penny" x="40" y="0" width="300" height="330"/>
+        <use href="#bike" x="470" y="40" width="280" height="294"/>
+        <path class="p" d="M236 18 L360 18 L360 62 L276 62 L252 84 L254 62 L236 62Z"/>
+        <text class="t" x="298" y="48" font-size="24">ONWARD!</text>
+        <text class="t" x="394" y="196" font-size="26">TOOTY</text>
+        <text class="h" x="394" y="224" font-size="21" text-anchor="middle">(explorer)</text>
+        <path class="l" d="M360 186 Q340 176 322 182"/>
+        <text class="h" x="500" y="44" font-size="24">Me. With basket.</text>
+        <path class="l" d="M600 52 Q614 74 608 102"/>
+        <path class="l" d="M566 118 q-8 4 -10 12 M556 140 q-8 4 -10 12" style="stroke-width:2"/>
+      </g>
+    </svg>
+    <figcaption>Tooty says his is a bicycle. He says mine is "a lesser sort of bicycle".</figcaption>
+  </figure>
+
+  <div class="lined">
+    <p>Right. Before we start. Tooty Beetroot is an explorer. He is also, as far as I can tell, Victorian. I asked him about that once. He asked if I'd had my breakfast.</p>
+    <p>I'm Wilford. I do the maps, the snacks and the bit where we don't die. This is my log. Tooty isn't allowed to read it (Tooty, if you're reading this, go away).</p>
+  </div>
+
+  <h2 class="entry">Friday, 7.58pm. The Swan Inn, Alderton.</h2>
+
+  <div class="lined">
+    <p>Tooty doesn't walk into rooms. He bursts. Tents, shops, a lift once (the lift wasn't ready).</p>
+    <p>So when he burst into the Swan on Friday night, it went about how you'd expect. Friday is bingo night. Bingo at the Swan is silent. There's a sign over the bar that says <span class="sign">SILENCE DURING PLAY. THIS MEANS YOU, DEREK.</span> Nobody has seen Derek for years. They still mean him.</p>
+    <p>Forty heads turned. Forty dabbers stopped dabbing (those fat felt pens). Up on a little stage, behind a microphone, Compton Dando lifted one finger.</p>
+    <p>Compton Dando is the bingo caller. He wears a velvet jacket and smiles with only the bottom half of his face. He is also the man who has spent 3 years trying to stop Tooty Beetroot doing anything at all.</p>
+    <p>He's not a good bingo caller. Last month he called Number 12 four times, and nobody won for an hour. Nobody dares tell him.</p>
+    <p>"Eyes down," he said, very softly. <span class="call">"Kelly's eye. Number 1."</span></p>
+  </div>
+
+  <figure class="panel">
+    <svg viewBox="0 0 800 440" role="img" aria-label="Tooty bursting through the pub door with his arms out, shouting. Wilford hides his face behind him. Forty bingo players stare. Compton Dando, in a top hat, stands on a stage with a microphone. A sign reads: Silence during play. This means you, Derek.">
+      <g filter="url(#wob)">
+        <line class="l" x1="0" y1="400" x2="800" y2="400"/>
+        <path class="l" d="M20 414 L120 414 M200 420 L330 420 M420 412 L560 412 M620 422 L780 422" style="stroke-width:2" opacity=".5"/>
+        <path class="l" d="M300 22 L282 40 M500 22 L518 40"/>
+        <rect class="p" x="240" y="34" width="320" height="76" rx="4"/>
+        <circle class="k" cx="252" cy="46" r="3"/><circle class="k" cx="548" cy="46" r="3"/>
+        <text class="t" x="400" y="68" font-size="22">SILENCE DURING PLAY.</text>
+        <text class="t" x="400" y="98" font-size="22">THIS MEANS YOU, DEREK.</text>
+
+        <rect class="p" x="540" y="330" width="250" height="70"/>
+        <path class="p" d="M548 330 L548 314 L604 314 L604 330Z"/><path class="w" d="M552 314 C548 272 604 272 600 314Z"/>
+        <circle class="c" cx="564" cy="306" r="4.5"/><circle class="o" cx="576" cy="307" r="4.5"/><circle class="b" cx="588" cy="306" r="4.5"/><circle class="p" cx="570" cy="298" r="4.5"/>
+        <path class="l" d="M604 322 L616 322 L616 312" style="stroke-width:2.6"/>
+        <use href="#compton" x="640" y="113" width="95" height="217"/>
+        <path class="l" d="M646 330 L646 200 L664 190"/><ellipse class="k" cx="668" cy="188" rx="5" ry="8"/>
+        <path class="p" d="M560 20 L780 20 L780 84 L704 84 L690 118 L676 84 L560 84Z"/>
+        <text class="h" x="670" y="48" font-size="22" text-anchor="middle">"Eyes down."</text>
+        <text class="h" x="670" y="72" font-size="19" text-anchor="middle">Kelly's eye. Number 1.</text>
+
+        <use href="#punterHat" x="240" y="272" width="64" height="86"/>
+        <use href="#punter" x="320" y="268" width="64" height="86"/>
+        <use href="#punterShock" x="400" y="272" width="64" height="86"/>
+        <use href="#punterShock" x="205" y="312" width="72" height="88"/>
+        <use href="#punter" x="290" y="312" width="72" height="88"/>
+        <use href="#punterShock" x="375" y="312" width="72" height="88"/>
+        <use href="#punterHat" x="460" y="312" width="72" height="88"/>
+        <path class="l" d="M236 304 L236 296 M236 291 L236 290 M412 300 L412 292 M412 287 L412 286" style="stroke-width:3.4"/>
+        <rect class="p" x="496" y="236" width="22" height="16" transform="rotate(24 507 244)"/>
+        <path class="l d" d="M507 256 L507 290"/>
+
+        <path class="l" d="M8 400 L8 150 L152 150 L152 400"/>
+        <path class="p" d="M8 150 L58 128 L58 390 L8 400Z"/>
+        <use href="#wilfordPalm" x="24" y="306" width="36" height="92"/>
+        <text class="h" x="16" y="296" font-size="19" transform="rotate(-6 16 296)">oh no.</text>
+        <use href="#tootyBurst" x="74" y="228" width="120" height="170"/>
+        <path class="l" d="M64 256 L34 244 M214 262 L238 250 M176 214 L188 190 M132 206 L128 182 M206 300 L232 302" style="stroke-width:2.6"/>
+        <text class="t" x="132" y="196" font-size="24" transform="rotate(-6 132 196)">BURST!</text>
+        <path class="p" d="M10 62 L38 50 L34 26 L74 38 L100 14 L124 36 L164 20 L166 46 L206 50 L184 72 L208 96 L170 98 L166 122 L134 108 L108 126 L88 104 L50 116 L58 90Z" transform="translate(0 -4) scale(.98)"/>
+        <text class="t" x="108" y="62" font-size="19">MY GOOD</text>
+        <text class="t" x="108" y="86" font-size="19">FELLOW!</text>
+      </g>
+    </svg>
+    <figcaption>Forty heads. Forty dabbers. One Tooty. (Wilford, far left, wishing he was elsewhere.)</figcaption>
+  </figure>
+
+  <div class="lined">
+    <p>Tooty didn't notice. He marched straight to the bar, moustache first.</p>
+    <p><span class="shout">"My good fellow!"</span> Tooty has one volume. It is Town Crier. <span class="shout">"I am seeking a gentleman. A Mr Butley Village-Hall!"</span></p>
+    <p>Somebody's bingo card floated to the floor.</p>
+    <p>The landlord looked at him. He had a shaved head, a union badge, and a guitar on the wall behind him that looked like it had written an angry song about this exact situation. He leant across the bar and said, in the loudest whisper I've ever heard:</p>
+    <p>"It's bingo. Shut up."</p>
+    <p><span class="shout">"Splendid!"</span> said Tooty. <span class="shout">"I shall whisper!"</span> (For Tooty a whisper is a shout wearing a scarf.) <span class="shout">"Do you know the fellow? Fine family, the Village-Halls. Old money. Very upright. I knew one at school. Terrible at cricket. Sound chap."</span></p>
+    <p><span class="call">"Legs eleven,"</span> said Compton Dando, into the microphone, very loudly, to nobody.</p>
+  </div>
+
+  <figure class="panel">
+    <svg viewBox="0 0 760 322" role="img" aria-label="The landlord, with a shaved head, tired eyes and a union badge, whispers across the bar at Tooty, who shouts back with his arms out. Wilford covers his face. A guitar hangs on the wall.">
+      <g filter="url(#wob)">
+        <ellipse class="p" cx="130" cy="176" rx="34" ry="30"/><ellipse class="p" cx="130" cy="126" rx="26" ry="22"/>
+        <circle class="k" cx="130" cy="176" r="10"/>
+        <rect class="p" x="124" y="14" width="12" height="96"/><rect class="p" x="119" y="2" width="22" height="18"/>
+        <path class="l" d="M118 4 L142 4 M127 20 L133 20" style="stroke-width:2"/>
+        <circle class="b" cx="108" cy="168" r="6"/>
+        <text class="h" x="182" y="150" font-size="20">Guitar.</text>
+        <text class="h" x="182" y="172" font-size="20">Has written a</text>
+        <text class="h" x="182" y="194" font-size="20">song about this.</text>
+        <path class="l" d="M176 160 Q160 160 166 176"/>
+
+        <use href="#wilfordPalm" x="684" y="168" width="44" height="105"/>
+        <use href="#tootyBurst" x="562" y="100" width="132" height="187"/>
+
+        <path class="p" d="M300 270 C300 190 470 190 470 270Z"/>
+        <ellipse class="p" cx="338" cy="132" rx="6" ry="12"/><ellipse class="p" cx="432" cy="132" rx="6" ry="12"/>
+        <circle class="p" cx="385" cy="130" r="46"/>
+        <path class="l" d="M358 108 Q371 100 384 108 M394 104 Q408 98 418 110" style="stroke-width:4.5"/>
+        <path class="l" d="M360 126 L382 126 M392 126 L414 126" style="stroke-width:2.6"/>
+        <circle class="k" cx="371" cy="131" r="3.2"/><circle class="k" cx="403" cy="131" r="3.2"/>
+        <path class="l" d="M362 138 Q371 143 380 138 M394 138 Q403 143 412 138" style="stroke-width:1.8"/>
+        <path class="l" d="M376 156 L396 156"/>
+        <path class="k" d="M352 160 l2 0 M360 168 l2 0 M372 172 l2 0 M388 174 l2 0 M404 172 l2 0 M416 166 l2 0 M424 158 l2 0 M366 160 l2 0 M394 164 l2 0 M380 164 l2 0 M408 158 l2 0 M356 150 l2 0 M420 150 l2 0" stroke="var(--ink)" stroke-width="3"/>
+        <circle class="b" cx="346" cy="222" r="11"/><path class="l" d="M341 222 h10 M346 217 v10" style="stroke-width:2.4"/>
+        <path class="l" d="M318 262 Q345 276 378 264 M452 262 Q430 276 404 266"/>
+        <rect class="p" x="0" y="268" width="760" height="50"/>
+        <path class="l" d="M0 292 L760 292 M180 268 L180 318 M560 268 L560 318" style="stroke-width:1.8" opacity=".5"/>
+        <path class="c" d="M236 252 L262 252 L258 268 L240 268Z"/><path class="p" d="M236 244 L262 244 L262 252 L236 252Z"/>
+        <rect class="p" x="486" y="238" width="14" height="30"/><circle class="k" cx="493" cy="232" r="7"/>
+        <rect class="p" x="508" y="244" width="14" height="24"/><circle class="k" cx="515" cy="238" r="7"/>
+
+        <path class="p" style="stroke-dasharray:2 7" d="M250 20 Q330 4 470 18 Q510 40 468 66 L420 70 L396 80 L392 70 Q300 74 262 62 Q226 42 250 20Z"/>
+        <text class="h" x="360" y="46" font-size="20" text-anchor="middle" opacity=".9">it's bingo. shut up.</text>
+
+        <path class="p" d="M520 14 L548 4 L560 24 L600 8 L620 30 L668 20 L670 52 L722 60 L694 82 L726 104 L684 110 L682 138 L640 120 L618 142 L596 116 L556 130 L560 104 L520 96 L544 76 L510 56Z"/>
+        <text class="t" x="612" y="58" font-size="19">SPLENDID!</text>
+        <text class="t" x="612" y="84" font-size="16">I SHALL WHISPER!</text>
+        <path class="l" d="M548 150 L534 142 M544 190 L528 190 M548 226 L534 236" style="stroke-width:2.6"/>
+      </g>
+    </svg>
+    <figcaption>The landlord's whisper. Then Tooty's.</figcaption>
+  </figure>
+
+  <div class="lined">
+    <p>You know a Village-Hall. Everyone does. Sticky floor, a tea urn in the corner, a cupboard of folding chairs nobody's opened since 1987. Tooty has never been in one. He thinks it's a man. This is how most of our weeks go.</p>
+    <p>I watched the landlord work it out. You could see it going across his face, like weather. Arguing with Tooty takes 20 minutes. Giving him the answer takes 10 seconds.</p>
+    <p>"Butley Village Hall," he whispered, very slowly, "is a building. Out of here, left, past the church, second turning after the duck pond. Big ugly hut. Flagpole. That's your fella."</p>
+    <p><span class="shout">"A hut!"</span> said Tooty. <span class="shout">"Humble beginnings. I respect that."</span> He shook the landlord's hand with both of his. <span class="shout">"Sir, you are a credit to your parish."</span></p>
+    <p>In a silent pub you hear everything. Compton Dando had heard all of it. <span class="call">"Clickety click. Number 66,"</span> he said, and he wasn't looking at us any more. He was looking at the poster by the dartboard.</p>
+  </div>
+
+  <figure class="panel">
+    <svg viewBox="0 0 520 540" role="img" aria-label="A poster on the pub wall: Butley Big Ride, Saturday 9am, 40 miles. First rider to sign on wins the Big Cheese, 9 kilos. A pair of narrowed eyes watches from the edge of the picture.">
+      <g filter="url(#wob)">
+        <circle class="p" cx="448" cy="64" r="44"/><circle class="l" cx="448" cy="64" r="28"/><circle class="k" cx="448" cy="64" r="6"/>
+        <path class="l" d="M448 20 L448 108 M404 64 L492 64"/>
+        <path class="l" d="M470 90 L430 60 M436 56 l-6 -8 l12 2"/>
+        <g transform="rotate(-2 220 280)">
+          <rect class="p" x="40" y="30" width="330" height="480"/>
+          <rect class="c" x="22" y="22" width="56" height="22" transform="rotate(-30 50 33)" opacity=".85"/>
+          <rect class="c" x="332" y="22" width="56" height="22" transform="rotate(28 360 33)" opacity=".85"/>
+          <text class="t" x="205" y="108" font-size="62">BUTLEY</text>
+          <text class="t" x="205" y="170" font-size="62">BIG RIDE</text>
+          <path class="l" d="M70 190 Q205 200 340 188"/>
+          <text class="h" x="205" y="226" font-size="24" text-anchor="middle">SATURDAY. 9AM. 40 MILES.</text>
+          <use href="#cheese" x="95" y="246" width="220" height="168"/>
+          <path class="l" d="M82 262 L96 276 M60 300 L82 304 M330 262 L318 278 M352 304 L330 306 M205 232 L205 244" style="stroke-width:2.6"/>
+          <text class="t" x="205" y="450" font-size="21">FIRST RIDER TO SIGN ON</text>
+          <text class="t" x="205" y="478" font-size="21">WINS THE BIG CHEESE (9kg)</text>
+          <text class="h" x="205" y="500" font-size="15" text-anchor="middle">Starts and finishes at Butley Village Hall</text>
+        </g>
+        <ellipse class="p" cx="446" cy="420" rx="22" ry="15"/><ellipse class="p" cx="494" cy="418" rx="22" ry="15"/>
+        <circle class="k" cx="436" cy="421" r="6"/><circle class="k" cx="484" cy="419" r="6"/>
+        <path class="l" d="M420 398 L460 410 M516 396 L478 408" style="stroke-width:4.4"/>
+      </g>
+    </svg>
+    <figcaption>The poster by the dartboard. Note the eyes.</figcaption>
+  </figure>
+
+  <div class="lined">
+    <p>I didn't think anything of it at the time. I'd like that written down.</p>
+  </div>
+
+  <h2 class="entry">Saturday, 8.10am. The road out of Alderton.</h2>
+
+  <div class="lined">
+    <p>We'd been going about 4 minutes when we hit the sign.</p>
+    <p>It was orange. It said <span class="sign">DIVERSION</span>. It had a big arrow pointing right.</p>
+    <p><span class="shout">"A diversion!"</span> said Tooty, with total joy. <span class="shout">"Wilford! In my day a diversion was a treat! A conjuror! A fair! A man with a bear!"</span></p>
+    <p>"It means the road's shut, Tooty."</p>
+    <p><span class="shout">"Then someone has gone to a great deal of trouble to entertain us."</span></p>
+    <p>I looked at the sign. It was a very good sign. Crisp lettering. Shiny bolts. Roadworks signs are usually a bit sad and muddy, and anyway there weren't any roadworks.</p>
+    <p>"I've got a feeling about this," I said.</p>
+    <p><span class="shout">"So have I!"</span> said Tooty, and went right.</p>
+  </div>
+
+  <figure class="panel">
+    <svg viewBox="0 0 800 400" role="img" aria-label="Tooty cheerfully follows an orange DIVERSION sign while Wilford looks doubtful. A map shows the road looping round a duck pond. Below, the same duck on laps 1, 2 and 3 looks more and more suspicious, and by the third lap is selling tickets.">
+      <g filter="url(#wob)">
+        <path d="M0 248 L560 248" style="fill:none;stroke:var(--hedge);stroke-width:36;stroke-linecap:round;stroke-dasharray:1 27"/>
+        <path class="l" d="M10 262 L560 262" style="stroke-width:3"/>
+        <line class="l" x1="0" y1="262" x2="800" y2="262"/>
+        <use href="#penny" x="6" y="14" width="226" height="249"/>
+        <use href="#bike" x="236" y="110" width="150" height="158"/>
+        <circle class="p" cx="306" cy="136" r="3"/><circle class="p" cx="312" cy="118" r="5"/>
+        <path class="p" d="M290 100 q6 -18 28 -10 q10 -16 28 -2 q20 -2 18 14 q-4 12 -20 8 q-12 10 -26 0 q-20 4 -28 -10Z" transform="translate(0 -8)"/>
+        <text class="h" x="334" y="93" font-size="20" text-anchor="middle">hmm.</text>
+
+        <path class="p" d="M206 8 L476 8 L476 48 L318 48 L172 70 L240 48 L206 48Z"/>
+        <text class="t" x="341" y="36" font-size="21">A DIVERSION! SPLENDID!</text>
+        <rect class="p" x="478" y="150" width="14" height="114"/>
+        <path class="o" d="M414 68 L556 68 L556 154 L414 154Z"/>
+        <circle class="k" cx="424" cy="78" r="3"/><circle class="k" cx="546" cy="78" r="3"/><circle class="k" cx="424" cy="144" r="3"/><circle class="k" cx="546" cy="144" r="3"/>
+        <text class="t" x="485" y="104" font-size="25">DIVERSION</text>
+        <path class="k" d="M436 124 L512 124 L512 113 L540 130 L512 147 L512 136 L436 136Z"/>
+
+        <ellipse class="l d" cx="690" cy="150" rx="100" ry="74"/>
+        <ellipse class="w" cx="690" cy="150" rx="54" ry="32"/>
+        <path class="l" d="M660 160 q8 -5 16 0 M700 168 q8 -5 16 0" style="stroke-width:1.8"/>
+        <use href="#duck" x="664" y="124" width="52" height="44"/>
+        <path class="l" d="M600 82 l12 -6 l-4 14 M764 126 l8 12 l-14 0 M610 214 l-14 -10 l16 -4"/>
+        <text class="h" x="690" y="254" font-size="19" text-anchor="middle">round and round</text>
+
+        <use href="#duck" x="70" y="296" width="92" height="78"/>
+        <text class="h" x="116" y="392" font-size="20" text-anchor="middle">Lap 1. Just a duck.</text>
+
+        <use href="#duck" x="340" y="296" width="92" height="78"/>
+        <path class="l" d="M394 304 L416 312" style="stroke-width:5"/>
+        <text class="h" x="386" y="392" font-size="20" text-anchor="middle">Lap 2. Has noticed us.</text>
+
+        <use href="#duck" x="590" y="296" width="92" height="78"/>
+        <path class="v" d="M638 310 Q656 292 674 310Z"/><path class="k" d="M672 308 L690 311 L672 313Z"/>
+        <path class="l" d="M740 384 L740 346"/><rect class="o" x="706" y="324" width="68" height="24"/>
+        <text class="t" x="740" y="341" font-size="13">TICKETS</text>
+        <text class="h" x="636" y="392" font-size="20" text-anchor="middle">Lap 3. Selling tickets.</text>
+      </g>
+    </svg>
+    <figcaption>7 signs in 25 minutes. Same duck, I'm nearly sure.</figcaption>
+  </figure>
+
+  <div class="lined">
+    <p>DIVERSION left. DIVERSION right. DIVERSION left again. By the third time we passed the duck pond, the duck had stopped swimming and was just watching us.</p>
+    <p>I should say that Tooty is wrong about nearly everything. He is also the only person I know who says good morning to hedges, and means it.</p>
+    <p>You can't tell Tooty he's wrong. I tried once, in 2019. He gave me a medal for Honesty and carried on. So a good navigator doesn't argue. A good navigator waits for something Tooty wants more.</p>
+    <p>"Tooty," I said. "I've heard the best diversions are the unmarked ones. The secret ones."</p>
+    <p>His big wheel stopped. <span class="shout">"Secret diversions?"</span></p>
+    <p>"Second turning after the pond. No sign. Very exclusive."</p>
+    <p><span class="shout">"Wilford,"</span> he said, <span class="shout">"you are a genius."</span></p>
+    <p>I am. But mostly I'd been listening to the landlord.</p>
+    <p>It was a muddy track between two fields. "Last time I was in Suffolk," said Tooty, "this was all fields."</p>
+    <p>"It's still all fields, Tooty."</p>
+    <p><span class="shout">"Then someone has preserved it magnificently."</span></p>
+  </div>
+
+  <h2 class="entry">Saturday, 8.52am. Butley Village Hall.</h2>
+
+  <div class="lined">
+    <p>It was a big ugly hut with a flagpole and some bunting that had given up. Outside was a trestle table. On the table sat a wheel of cheese the size of a car tyre. Next to it stood a woman in a hi-vis vest, holding a clipboard.</p>
+    <p>No other riders. Not one. The diversions had got the lot of them. I could hear a bike bell, a long way off, going round the duck pond.</p>
+    <p>Tooty got off his penny-farthing. This takes a while. It's like climbing down a tree. Then he took off his helmet, and bowed to the building.</p>
+    <p><span class="shout">"Mr Village-Hall,"</span> he said. <span class="shout">"At last. Beetroot. Tooty. Explorer. I trust I find you well."</span></p>
+    <p>He shook the door handle. He held on to it. For quite a long time.</p>
+  </div>
+
+  <aside class="note">
+    <h3>Things Tooty has shaken hands with this month</h3>
+    <ol>
+      <li>A vicar.</li>
+      <li>The Mayor of Bedford.</li>
+      <li>A gatepost.</li>
+      <li>A cash machine (it gave him £20, so he thinks it likes him).</li>
+    </ol>
+  </aside>
+
+  <figure class="panel">
+    <svg viewBox="0 0 800 400" role="img" aria-label="Butley Village Hall: a plain hut with a flagpole and droopy bunting. Tooty shakes the door handle. A woman in a hi-vis vest stands by a table with a giant cheese. Wilford eats crisps. Other riders: none.">
+      <g filter="url(#wob)">
+        <path class="p" d="M10 362 L10 250 L30 240 L30 200 L40 168 L50 200 L50 240 L68 250 L68 362Z" opacity=".9"/>
+        <path class="l" d="M40 168 L40 152 M34 158 L46 158 M32 270 Q40 256 48 270 L48 300 L32 300Z" style="stroke-width:2"/>
+        <path class="p" d="M740 150 q-6 -26 20 -30 q4 -22 28 -8 q16 12 -2 34Z"/>
+        <path class="l" d="M762 150 L762 190" style="stroke-width:5"/>
+        <line class="l" x1="0" y1="362" x2="800" y2="362"/>
+        <path class="l" d="M20 376 L120 376 M230 380 L360 380 M470 374 L640 374" style="stroke-width:2" opacity=".5"/>
+        <path class="l" d="M110 56 q8 -10 18 0 q10 -10 20 0" style="stroke-width:2"/>
+        <path class="p" d="M610 40 q8 -18 28 -8 q12 -14 28 0 q18 -2 16 12 q-6 10 -22 6 q-12 8 -24 -2 q-18 4 -26 -8Z"/>
+
+        <rect class="p" x="430" y="170" width="280" height="192"/>
+        <path class="l" d="M430 190 L710 190 M430 210 L710 210 M430 230 L710 230 M430 250 L710 250 M430 270 L710 270 M430 290 L710 290 M430 310 L710 310" style="stroke-width:1.4" opacity=".28"/>
+        <path class="p" d="M416 172 L438 140 L702 140 L724 172Z"/>
+        <rect class="p" x="520" y="252" width="62" height="110"/><circle class="k" cx="572" cy="301" r="4.5"/>
+        <rect class="p" x="450" y="206" width="52" height="46"/><path class="l" d="M476 206 L476 252 M450 229 L502 229"/>
+        <rect class="p" x="610" y="206" width="52" height="46"/><path class="l" d="M636 206 L636 252 M610 229 L662 229"/>
+        <rect class="p" x="486" y="172" width="130" height="26"/><text class="t" x="551" y="190" font-size="12">BUTLEY VILLAGE HALL</text>
+        <path class="l" d="M700 172 L700 360"/>
+        <path class="l" d="M455 140 L455 24"/><path class="o" d="M455 24 L520 28 L504 44 L520 60 L455 56Z"/>
+        <path class="l" d="M418 132 Q570 100 722 132"/>
+        <path class="c" d="M440 124 L456 121 L448 140Z M510 112 L526 112 L518 131Z M582 110 L598 112 L590 130Z M656 118 L672 122 L664 140Z"/>
+        <path class="o" d="M476 117 L492 114 L484 133Z M546 110 L562 109 L554 128Z M620 112 L636 115 L628 133Z M690 124 L706 128 L698 146Z"/>
+        <path class="o" d="M352 360 L370 352 L366 366Z" transform="rotate(20 360 360)"/>
+
+        <rect class="p" x="84" y="302" width="156" height="12"/><path class="l" d="M98 314 L98 362 M226 314 L226 362"/>
+        <use href="#cheese" x="104" y="222" width="112" height="86"/>
+        <use href="#punter" x="250" y="262" width="82" height="100"/>
+        <path class="o" d="M268 322 L286 322 L286 362 L264 362Z M304 322 L318 322 L322 362 L300 362Z"/>
+        <rect class="p" x="312" y="330" width="28" height="34" transform="rotate(10 326 347)"/>
+
+        <use href="#wilford" x="350" y="257" width="44" height="105"/>
+        <path class="c" d="M392 318 L410 312 L414 336 L396 340Z"/>
+        <path class="l" d="M416 322 l4 -2 M418 332 l5 1 M412 344 l4 4" style="stroke-width:2.4"/>
+
+        <use href="#tootyShake" x="447" y="184" width="132" height="187"/>
+
+        <use href="#penny" x="712" y="238" width="88" height="97"/>
+
+        <path class="p" d="M236 110 L440 110 L440 168 L418 168 L468 244 L380 168 L236 168Z"/>
+        <text class="t" x="338" y="136" font-size="19">MR VILLAGE-HALL!</text>
+        <text class="t" x="338" y="158" font-size="19">AT LAST.</text>
+
+        <text class="h" x="40" y="70" font-size="22">Other riders:</text>
+        <text class="t" x="52" y="104" font-size="34" text-anchor="start">0</text>
+        <path class="l" d="M120 96 Q170 120 196 160"/>
+        <text class="h" x="580" y="94" font-size="17">(ting ting, far away)</text>
+        <text class="h" x="348" y="248" font-size="18">crisps?</text>
+      </g>
+    </svg>
+    <figcaption>Tooty meets Mr Village-Hall. Wilford has crisps.</figcaption>
+  </figure>
+
+  <div class="lined">
+    <p>The woman with the clipboard watched all this. "You here to sign on?"</p>
+    <p><span class="shout">"Madam, I am here to meet the gentleman."</span></p>
+    <p>"Right," she said, and wrote something down. "Well, you're first. So that's the Big Cheese."</p>
+    <p>That's when I remembered the poster. FIRST RIDER TO SIGN ON. And Compton Dando, looking at it.</p>
+    <p>Tooty lifted the cheese above his head. It's 9 kilos. He isn't big. For a second he was just two legs under a cheese. <span class="shout">"Mr Village-Hall has SURRENDERED A CHEESE!"</span></p>
+    <p>That's when the hedge moved.</p>
+  </div>
+
+  <figure class="panel">
+    <svg viewBox="0 0 800 400" role="img" aria-label="Tooty holds the giant cheese above his head so it covers his face. Compton Dando climbs out of a hedge in a hi-vis vest, covered in leaves, with DIVERSION signs under his arms. The woman with the clipboard says he has not signed on. Wilford shrugs.">
+      <g filter="url(#wob)">
+        <line class="l" x1="0" y1="372" x2="800" y2="372"/>
+        <path class="l" d="M20 386 L140 386 M260 388 L420 388 M520 384 L700 384" style="stroke-width:2" opacity=".5"/>
+        <use href="#compton" x="600" y="122" width="100" height="229"/>
+        <path class="g" d="M530 372 C520 304 552 252 600 262 C612 224 672 206 700 244 C740 214 792 252 782 304 L792 372Z"/>
+        <path class="l" d="M560 300 q12 -10 24 0 M640 280 q12 -10 24 0 M720 290 q12 -10 24 0 M600 330 q12 -10 24 0 M690 326 q12 -10 24 0 M566 352 q12 -10 24 0 M740 340 q12 -10 24 0" style="stroke-width:2"/>
+        <path class="g" d="M626 134 l12 -8 l4 12Z M672 196 l10 -10 l6 12Z M648 150 l-12 -4 l8 -10Z M688 160 l12 -2 l-6 10Z M614 176 l-10 -6 l12 -4Z"/>
+        <path class="o" d="M544 238 L626 252 L620 292 L538 278Z"/>
+        <text class="t" x="582" y="272" font-size="12" transform="rotate(10 582 272)">DIVERSION</text>
+        <path class="o" d="M712 262 L776 238 L784 274 L718 298Z"/>
+        <text class="t" x="748" y="272" font-size="11" transform="rotate(-18 748 272)">DIVERSION</text>
+
+        <use href="#tootyUp" x="270" y="190" width="130" height="184"/>
+        <use href="#cheese" x="236" y="112" width="198" height="151"/>
+
+        <use href="#punter" x="60" y="276" width="76" height="96"/>
+        <path class="o" d="M76 324 L92 324 L92 372 L72 372Z M110 324 L124 324 L128 372 L106 372Z"/>
+        <rect class="p" x="122" y="334" width="26" height="30" transform="rotate(10 135 349)"/>
+        <use href="#wilfordShrug" x="176" y="266" width="44" height="106"/>
+        <text class="h" x="226" y="318" font-size="19">I know.</text>
+
+        <path class="p" d="M10 14 L350 14 L350 78 L240 78 L300 112 L170 78 L10 78Z"/>
+        <text class="t" x="180" y="40" font-size="17">MR VILLAGE-HALL HAS</text>
+        <text class="t" x="180" y="64" font-size="17">SURRENDERED A CHEESE!</text>
+
+        <path class="p" d="M478 18 L508 6 L522 26 L560 10 L582 32 L626 20 L634 50 L682 56 L654 78 L690 100 L644 104 L640 128 L604 112 L580 134 L558 108 L520 122 L520 94 L482 84 L502 62 L470 44Z"/>
+        <text class="t" x="574" y="62" font-size="21">THAT'S MY</text>
+        <text class="t" x="574" y="88" font-size="21">CHEESE.</text>
+
+        <path class="p" d="M30 190 L190 190 L190 242 L124 242 L98 270 L96 242 L30 242Z"/>
+        <text class="h" x="110" y="213" font-size="17" text-anchor="middle">You haven't</text>
+        <text class="h" x="110" y="234" font-size="17" text-anchor="middle">signed on, sir.</text>
+      </g>
+    </svg>
+    <figcaption>Compton Dando had followed one of his own diversions.</figcaption>
+  </figure>
+
+  <div class="lined">
+    <p>Compton Dando came out of the hedge. He was wearing a hi-vis vest, he was covered in leaves, and he had a DIVERSION sign tucked under each arm. He'd been planning to come in the back way while we did laps of the duck. But he'd put up 7 diversions, and it turns out he'd followed one of them himself.</p>
+    <p>"That's MY cheese," he said.</p>
+    <p>"You haven't signed on, sir," said the woman, not looking up.</p>
+    <p>"I left my pen in the pub."</p>
+    <p>What had happened was this. Compton heard Tooty ask for Butley Village-Hall. He saw the poster. He put 2 and 2 together and got 5. In his head, Tooty was after the cheese.</p>
+    <p>Tooty had never heard of the cheese. Tooty still thinks the cheese was a present.</p>
+    <p>And Compton could have won it himself. He could have turned up at 8.45 and signed his name. That's all it took. No signs, no hedge. But Compton Dando has never once done a thing the easy way when a complicated way was lying around. He's very proud of this. I think it's the main reason he loses.</p>
+    <p>Tooty beamed down at him. <span class="shout">"Dando! Thank you for the diversions. Jolly good fun. Come and meet Mr Village-Hall."</span></p>
+    <p>The bottom half of Compton's face smiled. "I'll get you next time, Beetroot," he said, and picked a twig out of his ear.</p>
+    <p>He says that every time. I've nearly started to like it.</p>
+  </div>
+
+  <h2 class="entry">Saturday, 9.05am. The rest of it.</h2>
+
+  <figure class="panel">
+    <svg viewBox="0 0 520 270" role="img" aria-label="Wilford sweating on his bike with the Big Cheese in his basket, next to Tooty cheerfully riding his penny-farthing. A dotted outline of a pumpkin floats above, labelled: last time.">
+      <g filter="url(#wob)">
+        <line class="l" x1="0" y1="256" x2="520" y2="256"/>
+        <ellipse class="l d" cx="62" cy="56" rx="30" ry="22" style="stroke-dasharray:3 6"/><path class="l d" d="M62 34 L62 24 L70 20" style="stroke-dasharray:3 6"/>
+        <text class="h" x="62" y="104" font-size="18" text-anchor="middle">last time</text>
+        <text class="h" x="62" y="124" font-size="18" text-anchor="middle">(pumpkin)</text>
+        <use href="#bike" x="20" y="4" width="252" height="264"/>
+        <use href="#cheese" x="204" y="86" width="84" height="64"/>
+        <path class="l" d="M118 62 l-3 10 M128 74 l-3 10 M104 76 l-3 10" style="stroke-width:2.6"/>
+        <use href="#penny" x="288" y="12" width="226" height="249"/>
+      </g>
+    </svg>
+    <figcaption>Heaviest 40 miles of my life.</figcaption>
+  </figure>
+
+  <div class="lined">
+    <p>We did the 40 miles. Tooty on the penny-farthing, me on the normal bike, the Big Cheese in my basket. It was the heaviest 40 miles of my life. (I said that last time, but that was a pumpkin.)</p>
+  </div>
+
+  <h2 class="entry">Saturday, 7pm. The report.</h2>
+
+  <div class="lined">
+    <p>Tooty dictated this. I wrote it down.</p>
+  </div>
+
+  <article class="report" aria-label="Official report of the expedition">
+    <h3>Official report of the expedition</h3>
+    <dl>
+      <dt>Mission</dt><dd>To locate Mr Butley Village-Hall.</dd>
+      <dt>Result</dt><dd>TRIUMPH.</dd>
+      <dt>Findings</dt><dd>Mr Village-Hall was located in the face of local hostility, a bingo evening and a bad-tempered man with a guitar. He received us warmly and surrendered a cheese.</dd>
+      <dt>Also</dt><dd>A secret diversion was discovered. The duck may be involved.</dd>
+      <dt>Staff</dt><dd>Wilford was also present.</dd>
+    </dl>
+    <span class="stamp">TRIUMPH</span>
+  </article>
+
+  <div class="lined end">
+    <p>I wrote it down exactly as he said it. I'd just like it noted that I was not "also present". I did the whole thing. But he looked so pleased.</p>
+    <p>I still don't know about the duck.</p>
+  </div>
+
+  <p class="endmark">End of Episode 1</p>
+</main>
+</body>
+</html>
